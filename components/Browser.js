@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
+import StyleSheet from '../utils/CrossPlatformStyleSheet';
 import {
-  StyleSheet,
   View,
   WebView,
   TextInput
@@ -65,16 +64,20 @@ const styles = StyleSheet.create({
   addressBar: {
     justifyContent: 'center',
     margin: 10,
-    paddingLeft: 8,
-    paddingRight: 8,
-    height: 28,
+    paddingHorizontal: 8,
     borderRadius: 4,
-    backgroundColor: '#e6e6e7'
+    backgroundColor: '#e6e6e7',
+    ios: {
+      height: 30
+    },
+    android: {
+      height: 40
+    }
   },
   addressBarField: {
     flex: 1,
     fontSize: 16,
-    height: 16
+    height: 24
   },
   webview: {
     flex: 1

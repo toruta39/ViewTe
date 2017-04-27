@@ -8,16 +8,15 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
-import Browser from './components/Browser';
+import App from './components/App';
 
 export default class WebviewTester extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Browser />
+        <App />
       </View>
     );
   }
