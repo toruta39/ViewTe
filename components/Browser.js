@@ -5,50 +5,40 @@ import {
   WebView,
   TextInput
 } from 'react-native';
+import AddressBar from './AddressBar';
 
 export default class Browser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visibleUrl: '', // shown in the address bar
+      currentUrl: '',
       gotoUrl: 'https://www.google.com' // to trigger navigation in webview
     }
 
     this.onLoadStart = this.onLoadStart.bind(this);
-    this.onAddressBarFieldChange = this.onAddressBarFieldChange.bind(this);
-    this.onAddressBarFieldSubmitEditing =
-      this.onAddressBarFieldSubmitEditing.bind(this);
-  }
-
-  onAddressBarFieldChange(e) {
-    this.setState({
-      visibleUrl: e.nativeEvent.text
-    });
-  }
-
-  onAddressBarFieldSubmitEditing(e) {
-    this.setState({
-      gotoUrl: e.nativeEvent.text
-    });
+    this.onAddressBarSubmitEditing =
+      this.onAddressBarSubmitEditing.bind(this);
   }
 
   onLoadStart(e) {
     this.setState({
-      visibleUrl: e.nativeEvent.url
+      currentUrl: e.nativeEvent.url
+    });
+  }
+
+  onAddressBarSubmitEditing(url) {
+    this.setState({
+      gotoUrl: url
     });
   }
 
   render() {
-    const {visibleUrl, gotoUrl} = this.state;
+    const {currentUrl, gotoUrl} = this.state;
 
     return (
       <View style={styles.container}>
-        <View style={styles.addressBar}>
-          <TextInput style={styles.addressBarField} value={visibleUrl}
-            onChange={this.onAddressBarFieldChange}
-            onSubmitEditing={this.onAddressBarFieldSubmitEditing}
-            returnKeyType="go"/>
-        </View>
+        <AddressBar currentUrl={currentUrl}
+          onSubmitEditing={this.onAddressBarSubmitEditing} />
         <WebView style={styles.webview} source={{uri: gotoUrl}}
           onLoadStart={this.onLoadStart} />
       </View>
@@ -60,24 +50,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch'
-  },
-  addressBar: {
-    justifyContent: 'center',
-    margin: 10,
-    paddingHorizontal: 8,
-    borderRadius: 4,
-    backgroundColor: '#e6e6e7',
-    ios: {
-      height: 30
-    },
-    android: {
-      height: 40
-    }
-  },
-  addressBarField: {
-    flex: 1,
-    fontSize: 16,
-    height: 24
   },
   webview: {
     flex: 1
