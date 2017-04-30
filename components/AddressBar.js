@@ -30,14 +30,14 @@ export default class AddressBar extends Component {
     }
   }
 
-  onFieldChange(e) {
+  onFieldChange({nativeEvent:{text}}) {
     this.setState({
-      inputUrl: e.nativeEvent.text
+      inputUrl: text
     });
   }
 
-  onSubmitEditing(e) {
-    this.props.onSubmitEditing(e.nativeEvent.text);
+  onSubmitEditing({nativeEvent:{text}}) {
+    this.props.onSubmitEditing({url: text});
   }
 
   onSelectionChange({nativeEvent:{selection}}) {

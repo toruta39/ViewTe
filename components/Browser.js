@@ -20,13 +20,13 @@ export default class Browser extends Component {
       this.onAddressBarSubmitEditing.bind(this);
   }
 
-  onLoadStart(e) {
+  onLoadStart({nativeEvent:{url}}) {
     this.setState({
-      currentUrl: e.nativeEvent.url
+      currentUrl: url
     });
   }
 
-  onAddressBarSubmitEditing(url) {
+  onAddressBarSubmitEditing({url}) {
     this.setState({
       gotoUrl: url
     });
