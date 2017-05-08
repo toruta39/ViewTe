@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import StyleSheet from '../utils/CrossPlatformStyleSheet';
 import {
   View,
-  TextInput,
-  Text,
-  TouchableOpacity
+  TextInput
 } from 'react-native';
+import EmojiButton from './EmojiButton';
 
 export default class AddressBar extends Component {
   constructor(props) {
@@ -78,10 +77,11 @@ export default class AddressBar extends Component {
             onFocus={this.onFocus}
             returnKeyType="go"/>
         </View>
-        <TouchableOpacity style={styles.reloadButtonWrapper}
-          onPress={onReload}>
-          <Text style={styles.reloadButton}>🔃</Text>
-        </TouchableOpacity>
+        <View style={styles.reloadButtonWrapper}>
+          <EmojiButton onPress={onReload}>
+            🔃
+          </EmojiButton>
+        </View>
       </View>
     );
   }
@@ -110,17 +110,7 @@ const styles = StyleSheet.create({
     height: 24
   },
   reloadButtonWrapper: {
-    alignItems: 'flex-end',
-    width: 30,
-    marginLeft: 4
-  },
-  reloadButton: {
-    fontSize: 16,
-    ios: {
-      lineHeight: 30
-    },
-    android: {
-      lineHeight: 40
-    }
+    marginLeft: 10,
+    justifyContent: 'center'
   }
 });
