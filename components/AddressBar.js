@@ -79,7 +79,7 @@ export default class AddressBar extends Component {
         </View>
         <View style={styles.reloadButtonWrapper}>
           <EmojiButton onPress={onReload}>
-            🔃
+            ♻️
           </EmojiButton>
         </View>
       </View>
