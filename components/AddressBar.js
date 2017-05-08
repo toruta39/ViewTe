@@ -4,6 +4,7 @@ import {
   View,
   TextInput
 } from 'react-native';
+import EmojiButton from './EmojiButton';
 
 export default class AddressBar extends Component {
   constructor(props) {
@@ -59,20 +60,28 @@ export default class AddressBar extends Component {
   }
 
   render() {
+    const {onReload} = this.props;
     const {inputUrl, selection} = this.state;
 
     return (
       <View style={styles.container}>
-        <TextInput style={styles.field} value={inputUrl}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="url"
-          selection={selection}
-          onChange={this.onFieldChange}
-          onSubmitEditing={this.onSubmitEditing}
-          onSelectionChange={this.onSelectionChange}
-          onFocus={this.onFocus}
-          returnKeyType="go"/>
+        <View style={styles.fieldBackground}>
+          <TextInput style={styles.field} value={inputUrl}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="url"
+            selection={selection}
+            onChange={this.onFieldChange}
+            onSubmitEditing={this.onSubmitEditing}
+            onSelectionChange={this.onSelectionChange}
+            onFocus={this.onFocus}
+            returnKeyType="go"/>
+        </View>
+        <View style={styles.reloadButtonWrapper}>
+          <EmojiButton onPress={onReload}>
+            🔃
+          </EmojiButton>
+        </View>
       </View>
     );
   }
@@ -80,21 +89,30 @@ export default class AddressBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    margin: 10,
+    padding: 10,
+    flexDirection: 'row',
+    ios: {
+      height: 50
+    },
+    android: {
+      height: 60
+    },
+    borderBottomColor: '#cecdce',
+    borderBottomWidth: 1
+  },
+  fieldBackground: {
     paddingHorizontal: 8,
     borderRadius: 4,
     backgroundColor: '#e6e6e7',
-    ios: {
-      height: 30
-    },
-    android: {
-      height: 40
-    }
+    flex: 1
   },
   field: {
     flex: 1,
     fontSize: 16,
     height: 24
+  },
+  reloadButtonWrapper: {
+    marginLeft: 10,
+    justifyContent: 'center'
   }
 });
