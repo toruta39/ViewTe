@@ -89,14 +89,16 @@ export default class AddressBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    padding: 10,
     flexDirection: 'row',
     ios: {
-      height: 30
+      height: 50
     },
     android: {
-      height: 40
-    }
+      height: 60
+    },
+    borderBottomColor: '#cecdce',
+    borderBottomWidth: 1
   },
   fieldBackground: {
     paddingHorizontal: 8,
