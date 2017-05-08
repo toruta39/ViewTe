@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import StyleSheet from '../utils/CrossPlatformStyleSheet';
 import {
   View,
-  TextInput
+  TextInput,
+  Text,
+  TouchableOpacity
 } from 'react-native';
 
 export default class AddressBar extends Component {
@@ -59,20 +61,27 @@ export default class AddressBar extends Component {
   }
 
   render() {
+    const {onReload} = this.props;
     const {inputUrl, selection} = this.state;
 
     return (
       <View style={styles.container}>
-        <TextInput style={styles.field} value={inputUrl}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="url"
-          selection={selection}
-          onChange={this.onFieldChange}
-          onSubmitEditing={this.onSubmitEditing}
-          onSelectionChange={this.onSelectionChange}
-          onFocus={this.onFocus}
-          returnKeyType="go"/>
+        <View style={styles.fieldBackground}>
+          <TextInput style={styles.field} value={inputUrl}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="url"
+            selection={selection}
+            onChange={this.onFieldChange}
+            onSubmitEditing={this.onSubmitEditing}
+            onSelectionChange={this.onSelectionChange}
+            onFocus={this.onFocus}
+            returnKeyType="go"/>
+        </View>
+        <TouchableOpacity style={styles.reloadButtonWrapper}
+          onPress={onReload}>
+          <Text style={styles.reloadButton}>🔃</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -80,11 +89,8 @@ export default class AddressBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
     margin: 10,
-    paddingHorizontal: 8,
-    borderRadius: 4,
-    backgroundColor: '#e6e6e7',
+    flexDirection: 'row',
     ios: {
       height: 30
     },
@@ -92,9 +98,29 @@ const styles = StyleSheet.create({
       height: 40
     }
   },
+  fieldBackground: {
+    paddingHorizontal: 8,
+    borderRadius: 4,
+    backgroundColor: '#e6e6e7',
+    flex: 1
+  },
   field: {
     flex: 1,
     fontSize: 16,
     height: 24
+  },
+  reloadButtonWrapper: {
+    alignItems: 'flex-end',
+    width: 30,
+    marginLeft: 4
+  },
+  reloadButton: {
+    fontSize: 16,
+    ios: {
+      lineHeight: 30
+    },
+    android: {
+      lineHeight: 40
+    }
   }
 });

@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import AddressBar from './AddressBar';
 
+const WEBVIEW_REF = 'webview';
+
 export default class Browser extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +20,7 @@ export default class Browser extends Component {
     this.onLoadStart = this.onLoadStart.bind(this);
     this.onAddressBarSubmitEditing =
       this.onAddressBarSubmitEditing.bind(this);
+    this.onReload = this.onReload.bind(this);
   }
 
   onLoadStart({nativeEvent:{url}}) {
@@ -27,9 +30,17 @@ export default class Browser extends Component {
   }
 
   onAddressBarSubmitEditing({url}) {
-    this.setState({
-      gotoUrl: url
-    });
+    if (url !== this.state.gotoUrl) {
+      this.setState({
+        gotoUrl: url
+      });
+    } else {
+      this.refs[WEBVIEW_REF].reload();
+    }
+  }
+
+  onReload() {
+    this.refs[WEBVIEW_REF].reload();
   }
 
   render() {
@@ -38,9 +49,10 @@ export default class Browser extends Component {
     return (
       <View style={styles.container}>
         <AddressBar currentUrl={currentUrl}
-          onSubmitEditing={this.onAddressBarSubmitEditing} />
+          onSubmitEditing={this.onAddressBarSubmitEditing}
+          onReload={this.onReload} />
         <WebView style={styles.webview} source={{uri: gotoUrl}}
-          onLoadStart={this.onLoadStart} />
+          onLoadStart={this.onLoadStart} ref={WEBVIEW_REF} />
       </View>
     );
   }
