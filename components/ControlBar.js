@@ -18,12 +18,15 @@ export default class ControlBar extends Component {
       <View style={styles.container}>
         <EmojiButton onPress={onBack} style={styles.button}
           disabled={!isBackButtonEnabled}>
-          ◀️
+          👈
         </EmojiButton>
         <EmojiButton onPress={onForward} style={styles.button}
           disabled={!isForwardButtonEnabled}>
-          ▶️
+          👉
         </EmojiButton>
+        <EmojiButton disabled style={styles.button}>🚀</EmojiButton>
+        <EmojiButton disabled style={styles.button}>🔖</EmojiButton>
+        <EmojiButton disabled style={styles.button}>🔧</EmojiButton>
       </View>
     );
   }
@@ -32,13 +35,13 @@ export default class ControlBar extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     borderTopColor: '#cecdce',
     borderTopWidth: 1,
-    height: 40,
-    paddingHorizontal: 10
+    height: 40
   },
   button: {
-    marginRight: 10
+    padding: 8
   }
 });
