@@ -26,7 +26,7 @@ export default class ControlBar extends Component {
         </EmojiButton>
         <EmojiButton disabled style={styles.button}>🚀</EmojiButton>
         <EmojiButton disabled style={styles.button}>🔖</EmojiButton>
-        <EmojiButton disabled style={styles.button}>⚙</EmojiButton>
+        <EmojiButton disabled style={styles.button}>🔧</EmojiButton>
       </View>
     );
   }
