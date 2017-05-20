@@ -5,7 +5,9 @@ import {
 } from 'react-native';
 
 export default class ReloadButton extends Component {
-  loadingAnim = new Animated.Value(0)
+  state = {
+    spin: new Animated.Value(0)
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.isLoading && !prevProps.isLoading) {
@@ -14,8 +16,8 @@ export default class ReloadButton extends Component {
   }
 
   startAnim = () => {
-    this.loadingAnim.setValue(0);
-    Animated.timing(this.loadingAnim, {
+    this.state.spin.setValue(0);
+    Animated.timing(this.state.spin, {
       toValue: 1,
       duration: 1000
     }).start(() => {
@@ -33,7 +35,7 @@ export default class ReloadButton extends Component {
       <Animated.View style={{
         transform: [
           {
-            rotate: this.loadingAnim.interpolate({
+            rotate: this.state.spin.interpolate({
               inputRange: [0, 1],
               outputRange: [
                 '0deg', '360deg'
