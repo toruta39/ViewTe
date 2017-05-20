@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import StyleSheet from '../utils/CrossPlatformStyleSheet';
 import {
-  View
+  View,
+  Text
 } from 'react-native';
-import PaneWrapper from './PaneWrapper';
 
-export default class App extends Component {
+export default class DevPane extends Component {
   render() {
+    const {style} = this.props;
+
     return (
-      <View style={styles.container}>
-        <PaneWrapper />
+      <View style={[styles.container, style]}>
+        <Text>DevPane</Text>
       </View>
     );
   }
@@ -19,6 +21,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch'
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8'
   }
 });

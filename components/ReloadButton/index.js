@@ -23,9 +23,12 @@ export default class ReloadButton extends Component {
     });
   }
 
-  render() {
-    const {onPress} = this.props;
+  onPress = (...args) => {
+    this.startAnim();
+    this.props.onPress(...args);
+  }
 
+  render() {
     return (
       <Animated.View style={{
         transform: [
@@ -39,7 +42,7 @@ export default class ReloadButton extends Component {
           }
         ]
         }}>
-        <IconButton onPress={onPress} source={require('./reload.png')} />
+        <IconButton onPress={this.onPress} source={require('./reload.png')} />
       </Animated.View>
     );
   }
