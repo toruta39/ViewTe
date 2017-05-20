@@ -3,22 +3,22 @@ import StyleSheet from '../utils/CrossPlatformStyleSheet';
 import {
   View,
   TouchableOpacity,
-  Text
+  Image
 } from 'react-native';
 
-export default class EmojiButton extends Component {
+export default class IconButton extends Component {
   render() {
-    const {style, onPress, children, disabled} = this.props;
+    const {style, onPress, disabled, source} = this.props;
 
-    const text = <Text style={styles.text}>{children}</Text>;
+    const icon = <Image style={styles.icon} source={source} />;
 
     return disabled ? (
       <View style={[style, styles.disabled]}>
-        {text}
+        {icon}
       </View>
     ) : (
       <TouchableOpacity onPress={onPress} style={style}>
-        {text}
+        {icon}
       </TouchableOpacity>
     );
   }
@@ -28,9 +28,8 @@ const styles = StyleSheet.create({
   disabled: {
     opacity: 0.2
   },
-  text: {
-    fontSize: 20,
+  icon: {
     width: 24,
-    lineHeight: 24
+    height: 24
   }
 });

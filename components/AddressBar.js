@@ -4,23 +4,15 @@ import {
   View,
   TextInput
 } from 'react-native';
-import EmojiButton from './EmojiButton';
+import ReloadButton from './ReloadButton';
 
 export default class AddressBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputUrl: '',
-      selection: {
-        start: 0,
-        end: 0
-      }
+  state = {
+    inputUrl: '',
+    selection: {
+      start: 0,
+      end: 0
     }
-
-    this.onFieldChange = this.onFieldChange.bind(this);
-    this.onSubmitEditing = this.onSubmitEditing.bind(this);
-    this.onSelectionChange = this.onSelectionChange.bind(this);
-    this.onFocus = this.onFocus.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,23 +23,29 @@ export default class AddressBar extends Component {
     }
   }
 
-  onFieldChange({nativeEvent:{text}}) {
+  onFieldChange = ({nativeEvent:{text}}) => {
     this.setState({
       inputUrl: text
     });
   }
 
-  onSubmitEditing({nativeEvent:{text}}) {
-    this.props.onSubmitEditing({url: text});
+  onSubmitEditing = ({nativeEvent:{text}}) => {
+    let url = text;
+
+    if (!/^[^:]+:\/\//i.test(url)) {
+      url = 'http://' + url;
+    }
+
+    this.props.onSubmitEditing({url});
   }
 
-  onSelectionChange({nativeEvent:{selection}}) {
+  onSelectionChange = ({nativeEvent:{selection}}) => {
     this.setState({
       selection: selection
     });
   }
 
-  onFocus() {
+  onFocus = () => {
     // by default, cursor will be placed at the end of text after being
     // focused, so i delay selecting all text for 100ms after the default
     // behavior
@@ -60,7 +58,7 @@ export default class AddressBar extends Component {
   }
 
   render() {
-    const {onReload} = this.props;
+    const {onReload, isLoading} = this.props;
     const {inputUrl, selection} = this.state;
 
     return (
@@ -78,9 +76,7 @@ export default class AddressBar extends Component {
             returnKeyType="go"/>
         </View>
         <View style={styles.reloadButtonWrapper}>
-          <EmojiButton onPress={onReload}>
-            ♻️
-          </EmojiButton>
+          <ReloadButton onPress={onReload} isLoading={isLoading} />
         </View>
       </View>
     );

@@ -11,15 +11,12 @@ import ControlBar from './ControlBar';
 const WEBVIEW_REF = 'webview';
 
 export default class Browser extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUrl: '',
-      isBackButtonEnabled: false,
-      isForwardButtonEnabled: false,
-      loading: false,
-      gotoUrl: 'https://www.google.com' // to trigger navigation in webview
-    }
+  state = {
+    currentUrl: '',
+    isBackButtonEnabled: false,
+    isForwardButtonEnabled: false,
+    isLoading: false,
+    gotoUrl: 'https://www.google.com' // to trigger navigation in webview
   }
 
   onNavigationStateChange = (navState) => {
@@ -27,7 +24,7 @@ export default class Browser extends Component {
       isBackButtonEnabled: navState.canGoBack,
       isForwardButtonEnabled: navState.canGoForward,
       currentUrl: navState.url,
-      loading: navState.loading
+      isLoading: navState.loading
     });
   }
 
@@ -48,11 +45,11 @@ export default class Browser extends Component {
   onBack = () => this.refs[WEBVIEW_REF].goBack()
 
   render() {
-    const {currentUrl, gotoUrl, loading} = this.state;
+    const {currentUrl, gotoUrl, isLoading} = this.state;
 
     return (
       <View style={styles.container}>
-        <AddressBar currentUrl={currentUrl} loading={loading}
+        <AddressBar currentUrl={currentUrl} isLoading={isLoading}
           onSubmitEditing={this.onAddressBarSubmitEditing}
           onReload={this.onReload} />
         <WebView style={styles.webview} source={{uri: gotoUrl}}
