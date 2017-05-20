@@ -29,7 +29,7 @@ export default class AddressBar extends Component {
     });
   }
 
-  onSubmitEditing = ({nativeEvent:{text}}) => {
+  onSubmitEditing = ({nativeEvent: {text}}) => {
     let url = text;
 
     if (!/^[^:]+:\/\//i.test(url)) {
@@ -39,7 +39,7 @@ export default class AddressBar extends Component {
     this.props.onSubmitEditing({url});
   }
 
-  onSelectionChange = ({nativeEvent:{selection}}) => {
+  onSelectionChange = ({nativeEvent: {selection}}) => {
     this.setState({
       selection: selection
     });
