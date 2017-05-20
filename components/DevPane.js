@@ -11,7 +11,7 @@ export default class DevPane extends Component {
 
     return (
       <View style={[styles.container, style]}>
-        <Text>DevPane</Text>
+        <Text style={{color:'#fff'}}>DevPane</Text>
       </View>
     );
   }
@@ -19,9 +19,13 @@ export default class DevPane extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f8f8'
+    backgroundColor: '#000'
   }
 });
