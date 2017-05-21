@@ -12,7 +12,8 @@ import DevPane from './DevPane';
 export default class PaneWrapper extends Component {
   state = {
     activePane: 0,
-    panePadding: 30,
+    panePadding: 40,
+    slideablePadding: 10,
     panX: new Animated.Value(0),
     screenWidth: Dimensions.get('window').width
   }
@@ -23,28 +24,31 @@ export default class PaneWrapper extends Component {
         screenWidth: width,
         paneWidth: width - this.state.panePadding
       };
-    });
+    }, () => this.moveToActivePane({spring: false}));
   }
 
-  moveToActivePane = () => (
-    Animated.spring(this.state.panX, {
-      toValue: this.state.activePane * -this.state.paneWidth
-    }).start()
-  )
+  moveToActivePane = ({spring}) => {
+    const panX = this.state.activePane * -this.state.paneWidth;
 
-  componentDidUpdate(prevProps, prevState) {
-    this.moveToActivePane();
+    if (spring) {
+      Animated.spring(this.state.panX, {
+        toValue: panX,
+        bounciness: 0
+      }).start();
+    } else {
+      this.state.panX.setValue(panX);
+    }
   }
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponderCapture: ({nativeEvent}) => {
-        return nativeEvent.pageX < this.state.panePadding ||
-          nativeEvent.pageX > this.state.screenWidth - this.state.panePadding;
+        return nativeEvent.pageX < this.state.slideablePadding ||
+          nativeEvent.pageX > this.state.screenWidth - this.state.slideablePadding;
       },
       onMoveShouldSetPanResponderCapture: ({nativeEvent}) => {
-        return nativeEvent.pageX < this.state.panePadding ||
-          nativeEvent.pageX > this.state.screenWidth - this.state.panePadding;
+        return nativeEvent.pageX < this.state.slideablePadding ||
+          nativeEvent.pageX > this.state.screenWidth - this.state.slideablePadding;
       },
       onPanResponderMove: (e, {dx}) => {
         this.state.panX.setValue(
@@ -58,7 +62,7 @@ export default class PaneWrapper extends Component {
           let activePane = state.activePane - deltaPane;
           activePane = Math.max(-1, Math.min(1, activePane));
           return {activePane};
-        });
+        }, () => this.moveToActivePane({spring: true}));
       }
     });
   }
