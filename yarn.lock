@@ -1436,7 +1436,7 @@ fbjs-scripts@^0.7.0:
     semver "^5.1.0"
     through2 "^2.0.0"
 
-fbjs@^0.8.9, fbjs@~0.8.9:
+fbjs@^0.8.3, fbjs@^0.8.9, fbjs@~0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
@@ -2935,6 +2935,12 @@ react-devtools-core@^2.0.8:
   dependencies:
     cross-env "^3.1.4"
     ws "^2.0.3"
+
+react-native-wkwebview-reborn@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-wkwebview-reborn/-/react-native-wkwebview-reborn-1.4.0.tgz#5558ac1f7bc8e7ac30bc6f8b30e5ab4ab64523f8"
+  dependencies:
+    fbjs "^0.8.3"
 
 react-native@0.43.4:
   version "0.43.4"

@@ -6,7 +6,7 @@ import {
   PanResponder,
   Dimensions
 } from 'react-native';
-import BrowserContainer from './BrowserContainer';
+import Browser from './Browser';
 import Menu from './Menu';
 import Pane from './Pane';
 
@@ -17,7 +17,7 @@ export default class PaneWrapper extends Component {
     slideablePadding: 10,
     panX: new Animated.Value(0),
     screenWidth: Dimensions.get('window').width,
-    browser: 'default'
+    browser: 'uiwebview'
   }
 
   onLayout = ({nativeEvent: {layout: {width}}}) => {
@@ -88,11 +88,7 @@ export default class PaneWrapper extends Component {
               () => this.moveToActivePane({spring: true}));
             }} />
         </Pane>
-        {
-          this.state.browser === 'wkwebview' ? <BrowserContainer /> :
-          this.state.browser === 'safariview' ? <BrowserContainer /> :
-          <BrowserContainer />
-        }
+        <Browser type={this.state.browser} />
         <Pane style={{
           right: this.state.panePadding,
           transform: [

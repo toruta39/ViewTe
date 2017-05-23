@@ -18,7 +18,7 @@ export default class Menu extends Component {
     return (
       <View style={[styles.container, style]}>
         <TouchableOpacity style={styles.button}
-          onPress={() => onSelect('default')}>
+          onPress={() => onSelect('uiwebview')}>
           <Text>UIWebView</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}

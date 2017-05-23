@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import StyleSheet from '../utils/CrossPlatformStyleSheet';
+import PropTypes from 'prop-types';
 import {
   View,
-  WebView,
+  WebView as UIWebView,
   TextInput
 } from 'react-native';
+import WKWebView from 'react-native-wkwebview-reborn';
 import AddressBar from './AddressBar';
 import ControlBar from './ControlBar';
 
 const WEBVIEW_REF = 'webview';
 
 export default class Browser extends Component {
+  static types = {
+    'uiwebview': UIWebView,
+    'wkwebview': WKWebView,
+    'safariview': UIWebView
+  }
+
+  static propTypes = {
+    type: PropTypes.oneOf(['uiwebview', 'wkwebview', 'safariview']).isRequired
+  }
+
   state = {
     currentUrl: '',
     isBackButtonEnabled: false,
@@ -45,7 +57,10 @@ export default class Browser extends Component {
   onBack = () => this.refs[WEBVIEW_REF].goBack()
 
   render() {
+    const {type} = this.props;
     const {currentUrl, gotoUrl, isLoading} = this.state;
+
+    const WebView = Browser.types[type];
 
     return (
       <View style={styles.container}>
@@ -65,7 +80,9 @@ export default class Browser extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch'
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    backgroundColor: '#f8f8f8'
   },
   webview: {
     flex: 1
