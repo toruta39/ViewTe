@@ -9,6 +9,7 @@ import {
 import WKWebView from 'react-native-wkwebview-reborn';
 import AddressBar from './AddressBar';
 import ControlBar from './ControlBar';
+import SafariViewCaller from './SafariViewCaller';
 
 const WEBVIEW_REF = 'webview';
 
@@ -16,7 +17,7 @@ export default class Browser extends Component {
   static types = {
     'uiwebview': UIWebView,
     'wkwebview': WKWebView,
-    'safariview': UIWebView
+    'safariview': SafariViewCaller
   }
 
   static propTypes = {
