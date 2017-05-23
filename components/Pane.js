@@ -5,13 +5,13 @@ import {
   Text
 } from 'react-native';
 
-export default class DevPane extends Component {
+export default class Pane extends Component {
   render() {
-    const {style} = this.props;
+    const {style, children} = this.props;
 
     return (
       <View style={[styles.container, style]}>
-        <Text style={{color:'#fff'}}>DevPane</Text>
+        {children}
       </View>
     );
   }

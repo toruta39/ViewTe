@@ -7,7 +7,7 @@ import {
   Dimensions
 } from 'react-native';
 import BrowserContainer from './BrowserContainer';
-import DevPane from './DevPane';
+import Pane from './Pane';
 
 export default class PaneWrapper extends Component {
   state = {
@@ -75,14 +75,14 @@ export default class PaneWrapper extends Component {
         ]
         }]}
         {...this._panResponder.panHandlers} onLayout={this.onLayout}>
-        <DevPane style={{
+        <Pane style={{
           left: this.state.panePadding,
           transform: [
             {translateX: -this.state.screenWidth}
           ]
           }} />
         <BrowserContainer />
-        <DevPane style={{
+        <Pane style={{
           right: this.state.panePadding,
           transform: [
             {translateX: this.state.screenWidth}
