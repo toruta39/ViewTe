@@ -62,6 +62,9 @@ export default class Browser extends Component {
     const {currentUrl, gotoUrl, isLoading} = this.state;
 
     const WebView = Browser.types[type];
+    const additionalProps = type === 'WKWebView' ? {
+      openNewWindowInWebView: true
+    } : {};
 
     return (
       <View style={styles.container}>
@@ -70,7 +73,7 @@ export default class Browser extends Component {
           onReload={this.onReload} />
         <WebView style={styles.webview} source={{uri: gotoUrl}}
           onNavigationStateChange={this.onNavigationStateChange}
-          ref={WEBVIEW_REF} />
+          ref={WEBVIEW_REF} {...additionalProps} />
         <ControlBar {...this.state} onForward={this.onForward}
           onBack={this.onBack} />
       </View>
