@@ -3,7 +3,7 @@ import StyleSheet from '../utils/CrossPlatformStyleSheet';
 import PropTypes from 'prop-types';
 import {
   View,
-  WebView as UIWebView,
+  WebView,
   TextInput
 } from 'react-native';
 import WKWebView from 'react-native-wkwebview-reborn';
@@ -15,7 +15,7 @@ const WEBVIEW_REF = 'webview';
 
 export default class Browser extends Component {
   static types = {
-    'UIWebView': UIWebView,
+    'UIWebView': WebView,
     'WKWebView': WKWebView,
     'SafariView': SafariViewCaller
   }
@@ -27,7 +27,7 @@ export default class Browser extends Component {
   }
 
   state = {
-    currentUrl: '',
+    currentUrl: 'https://www.google.com',
     isBackButtonEnabled: false,
     isForwardButtonEnabled: false,
     isLoading: false,

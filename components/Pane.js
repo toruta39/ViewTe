@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    alignItems: 'stretch',
-    backgroundColor: '#000'
+    alignItems: 'stretch'
   }
 });

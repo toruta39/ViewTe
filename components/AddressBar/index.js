@@ -16,6 +16,12 @@ export default class AddressBar extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({
+      inputUrl: this.props.currentUrl
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUrl !== this.props.currentUrl) {
       this.setState({

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Browser from './Browser';
 import Menu from './Menu';
+import Dev from './Dev';
 import Pane from './Pane';
 
 export default class PaneWrapper extends Component {
@@ -108,7 +109,9 @@ export default class PaneWrapper extends Component {
           transform: [
             {translateX: this.state.screenWidth}
           ]
-          }} />
+          }}>
+          <Dev/>
+        </Pane>
       </Animated.View>
     );
   }
