@@ -15,13 +15,13 @@ const WEBVIEW_REF = 'webview';
 
 export default class Browser extends Component {
   static types = {
-    'uiwebview': UIWebView,
-    'wkwebview': WKWebView,
-    'safariview': SafariViewCaller
+    'UIWebView': UIWebView,
+    'WKWebView': WKWebView,
+    'SafariView': SafariViewCaller
   }
 
   static propTypes = {
-    type: PropTypes.oneOf(['uiwebview', 'wkwebview', 'safariview']).isRequired
+    type: PropTypes.oneOf(['UIWebView', 'WKWebView', 'SafariView']).isRequired
   }
 
   state = {

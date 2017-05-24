@@ -6,6 +6,7 @@ import {
   Text
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Browser from '../Browser';
 
 export default class Menu extends Component {
   static propTypes = {
@@ -17,18 +18,13 @@ export default class Menu extends Component {
 
     return (
       <View style={[styles.container, style]}>
-        <TouchableOpacity style={styles.button}
-          onPress={() => onSelect('uiwebview')}>
-          <Text>UIWebView</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
-          onPress={() => onSelect('wkwebview')}>
-          <Text>WKWebView</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
-          onPress={() => onSelect('safariview')}>
-          <Text>SafariView</Text>
-        </TouchableOpacity>
+        {Object.keys(Browser.types)
+          .map((key) => (
+            <TouchableOpacity key={key} style={styles.button}
+              onPress={() => onSelect(key)}>
+              <Text>{key}</Text>
+            </TouchableOpacity>
+          ))}
       </View>
     );
   }

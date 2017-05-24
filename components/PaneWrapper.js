@@ -17,7 +17,7 @@ export default class PaneWrapper extends Component {
     slideablePadding: 10,
     panX: new Animated.Value(0),
     screenWidth: Dimensions.get('window').width,
-    browser: 'uiwebview'
+    browser: Object.keys(Browser.types)[0]
   }
 
   onLayout = ({nativeEvent: {layout: {width}}}) => {
