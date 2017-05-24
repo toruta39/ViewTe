@@ -21,7 +21,9 @@ export default class Browser extends Component {
   }
 
   static propTypes = {
-    type: PropTypes.oneOf(['UIWebView', 'WKWebView', 'SafariView']).isRequired
+    type: PropTypes.oneOf(['UIWebView', 'WKWebView', 'SafariView']).isRequired,
+    onMenuButtonPress: PropTypes.func.isRequired,
+    onDevButtonPress: PropTypes.func.isRequired
   }
 
   state = {
@@ -58,7 +60,7 @@ export default class Browser extends Component {
   onBack = () => this.refs[WEBVIEW_REF].goBack()
 
   render() {
-    const {type} = this.props;
+    const {type, onMenuButtonPress, onDevButtonPress} = this.props;
     const {currentUrl, gotoUrl, isLoading} = this.state;
 
     const WebView = Browser.types[type];
@@ -70,7 +72,9 @@ export default class Browser extends Component {
       <View style={styles.container}>
         <AddressBar currentUrl={currentUrl} isLoading={isLoading}
           onSubmitEditing={this.onAddressBarSubmitEditing}
-          onReload={this.onReload} />
+          onReload={this.onReload}
+          onMenuButtonPress={onMenuButtonPress}
+          onDevButtonPress={onDevButtonPress} />
         <WebView style={styles.webview} source={{uri: gotoUrl}}
           onNavigationStateChange={this.onNavigationStateChange}
           ref={WEBVIEW_REF} {...additionalProps} />

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import StyleSheet from '../utils/CrossPlatformStyleSheet';
+import IconButton from '../IconButton';
+import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
   View,
   TextInput
 } from 'react-native';
-import ReloadButton from './ReloadButton';
+import ReloadButton from '../ReloadButton';
 
 export default class AddressBar extends Component {
   state = {
@@ -58,26 +59,37 @@ export default class AddressBar extends Component {
   }
 
   render() {
-    const {onReload, isLoading} = this.props;
+    const {
+      onReload,
+      isLoading,
+      onMenuButtonPress,
+      onDevButtonPress
+    } = this.props;
     const {inputUrl, selection} = this.state;
 
     return (
       <View style={styles.container}>
+        <IconButton style={styles.button} source={require('./menu.png')}
+          onPress={onMenuButtonPress}/>
         <View style={styles.fieldBackground}>
-          <TextInput style={styles.field} value={inputUrl}
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="url"
-            selection={selection}
-            onChange={this.onFieldChange}
-            onSubmitEditing={this.onSubmitEditing}
-            onSelectionChange={this.onSelectionChange}
-            onFocus={this.onFocus}
-            returnKeyType="go"/>
+          <View style={styles.fieldWrapper}>
+            <TextInput style={styles.field} value={inputUrl}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="url"
+              selection={selection}
+              onChange={this.onFieldChange}
+              onSubmitEditing={this.onSubmitEditing}
+              onSelectionChange={this.onSelectionChange}
+              onFocus={this.onFocus}
+              returnKeyType="go"/>
+          </View>
+          <View style={styles.reloadButtonWrapper}>
+            <ReloadButton onPress={onReload} isLoading={isLoading} />
+          </View>
         </View>
-        <View style={styles.reloadButtonWrapper}>
-          <ReloadButton onPress={onReload} isLoading={isLoading} />
-        </View>
+        <IconButton style={styles.button} source={require('./dev.png')}
+          onPress={onDevButtonPress}/>
       </View>
     );
   }
@@ -87,28 +99,31 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flexDirection: 'row',
-    ios: {
-      height: 50
-    },
-    android: {
-      height: 60
-    },
+    alignItems: 'center',
+    height: 50,
     borderBottomColor: '#cecdce',
     borderBottomWidth: 1
   },
   fieldBackground: {
+    marginHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 8,
     borderRadius: 4,
     backgroundColor: '#e6e6e7',
+    flex: 1,
+    height: 30
+  },
+  fieldWrapper: {
     flex: 1
   },
   field: {
-    flex: 1,
     fontSize: 16,
     height: 24
   },
   reloadButtonWrapper: {
     marginLeft: 10,
-    justifyContent: 'center'
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });

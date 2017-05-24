@@ -42,6 +42,18 @@ export default class PaneWrapper extends Component {
     }
   }
 
+  onMenuButtonPress = () => {
+    this.setState((state) => {
+      return {activePane: -1};
+    }, () => this.moveToActivePane({spring: true}));
+  }
+
+  onDevButtonPress = () => {
+    this.setState((state) => {
+      return {activePane: 1};
+    }, () => this.moveToActivePane({spring: true}));
+  }
+
   componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponderCapture: ({nativeEvent}) => {
@@ -88,7 +100,9 @@ export default class PaneWrapper extends Component {
               () => this.moveToActivePane({spring: true}));
             }} />
         </Pane>
-        <Browser type={this.state.browser} />
+        <Browser type={this.state.browser}
+          onMenuButtonPress={this.onMenuButtonPress}
+          onDevButtonPress={this.onDevButtonPress}/>
         <Pane style={{
           right: this.state.panePadding,
           transform: [

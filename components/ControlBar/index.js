@@ -23,12 +23,6 @@ export default class ControlBar extends Component {
         <IconButton onPress={onForward} style={styles.button}
           source={require('./forward.png')}
           disabled={!isForwardButtonEnabled} />
-        <IconButton disabled style={styles.button}
-          source={require('./misc.png')} />
-        <IconButton disabled style={styles.button}
-          source={require('./fav.png')} />
-        <IconButton disabled style={styles.button}
-          source={require('./dev.png')} />
       </View>
     );
   }
@@ -37,7 +31,7 @@ export default class ControlBar extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     borderTopColor: '#cecdce',
     borderTopWidth: 1,
