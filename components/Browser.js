@@ -17,7 +17,7 @@ export default class Browser extends Component {
   static types = {
     'UIWebView': WebView,
     'WKWebView': WKWebView,
-    'SafariView': SafariViewCaller
+    'SFSafariViewController': SafariViewCaller
   }
 
   static propTypes = {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: '#f8f8f8'
+    backgroundColor: '#f7df1e'
   },
   webview: {
     flex: 1

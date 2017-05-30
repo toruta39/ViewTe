@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#f7df1e',
     borderLeftWidth: 1,
     borderLeftColor: '#cecdce'
   },

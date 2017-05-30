@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import IconButton from '../IconButton';
 import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
   View,
-  TextInput
+  TextInput,
+  Button
 } from 'react-native';
 import ReloadButton from '../ReloadButton';
 
@@ -75,7 +75,7 @@ export default class AddressBar extends Component {
 
     return (
       <View style={styles.container}>
-        <IconButton style={styles.button} source={require('./menu.png')}
+        <Button style={styles.button} title="Menu" color="#565656"
           onPress={onMenuButtonPress}/>
         <View style={styles.fieldBackground}>
           <View style={styles.fieldWrapper}>
@@ -88,14 +88,13 @@ export default class AddressBar extends Component {
               onSubmitEditing={this.onSubmitEditing}
               onSelectionChange={this.onSelectionChange}
               onFocus={this.onFocus}
+              underlineColorAndroid="transparent"
               returnKeyType="go"/>
           </View>
           <View style={styles.reloadButtonWrapper}>
             <ReloadButton onPress={onReload} isLoading={isLoading} />
           </View>
         </View>
-        <IconButton style={styles.button} source={require('./dev.png')}
-          onPress={onDevButtonPress}/>
       </View>
     );
   }
@@ -107,16 +106,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 50,
-    borderBottomColor: '#cecdce',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    borderBottomColor: '#565656'
   },
   fieldBackground: {
-    marginHorizontal: 10,
+    marginLeft: 10,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 8,
     borderRadius: 4,
-    backgroundColor: '#e6e6e7',
+    backgroundColor: '#565656',
     flex: 1,
     height: 30
   },
@@ -125,7 +124,9 @@ const styles = StyleSheet.create({
   },
   field: {
     fontSize: 16,
-    height: 24
+    padding: 0,
+    height: 24,
+    color: '#f7df1e'
   },
   reloadButtonWrapper: {
     marginLeft: 10,

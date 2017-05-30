@@ -14,7 +14,7 @@ import Pane from './Pane';
 export default class PaneWrapper extends Component {
   state = {
     activePane: 0,
-    panePadding: 40,
+    panePadding: 0,
     slideablePadding: 10,
     panX: new Animated.Value(0),
     screenWidth: Dimensions.get('window').width,
@@ -104,14 +104,16 @@ export default class PaneWrapper extends Component {
         <Browser type={this.state.browser}
           onMenuButtonPress={this.onMenuButtonPress}
           onDevButtonPress={this.onDevButtonPress}/>
-        <Pane style={{
-          right: this.state.panePadding,
-          transform: [
-            {translateX: this.state.screenWidth}
-          ]
-          }}>
-          <Dev/>
-        </Pane>
+        { /*
+           * <Pane style={{
+           *   right: this.state.panePadding,
+           *   transform: [
+           *     {translateX: this.state.screenWidth}
+           *   ]
+           *   }}>
+           *   <Dev/>
+           * </Pane>
+           */ }
       </Animated.View>
     );
   }
