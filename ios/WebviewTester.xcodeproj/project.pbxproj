@@ -1084,7 +1084,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.t39.theWebviewTester;
+				PRODUCT_BUNDLE_IDENTIFIER = me.t39.viewTe;
 				PRODUCT_NAME = WebviewTester;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1107,7 +1107,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.t39.theWebviewTester;
+				PRODUCT_BUNDLE_IDENTIFIER = me.t39.viewTe;
 				PRODUCT_NAME = WebviewTester;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
