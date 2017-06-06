@@ -22,11 +22,11 @@ export default class VTButton extends Component {
   }
 
   render() {
-    const {type, onPress} = this.props;
+    const {type, style, onPress} = this.props;
 
     return (
       <TouchableOpacity onPress={onPress}>
-        <Image source={iconTable[type]} style={styles.icon}/>
+        <Image source={iconTable[type]} style={[styles.icon, style]}/>
       </TouchableOpacity>
     );
   }
