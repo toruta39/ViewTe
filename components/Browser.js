@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import {
   View,
   WebView,
-  TextInput
+  TextInput,
+  Text
 } from 'react-native';
 import WKWebView from 'react-native-wkwebview-reborn';
 import AddressBar from './AddressBar';
 import ControlBar from './ControlBar';
 import SafariViewCaller from './SafariViewCaller';
+import BrowserHeader from './BrowserHeader';
+import VTButton from './VTButton';
 
 const WEBVIEW_REF = 'webview';
 
@@ -70,6 +73,15 @@ export default class Browser extends Component {
 
     return (
       <View style={styles.container}>
+        <BrowserHeader
+          left={(
+            <VTButton type="menu" onPress={onMenuButtonPress} />
+          )}
+          right={(
+            <VTButton type="code" onPress={onDevButtonPress} />
+          )}>
+          UIWebView
+        </BrowserHeader>
         <AddressBar currentUrl={currentUrl} isLoading={isLoading}
           onSubmitEditing={this.onAddressBarSubmitEditing}
           onReload={this.onReload}
