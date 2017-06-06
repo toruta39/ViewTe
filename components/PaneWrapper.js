@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Browser from './Browser';
 import LeftPane from './LeftPane';
-import Dev from './Dev';
+import RightPane from './RightPane';
 import Pane from './Pane';
 
 export default class PaneWrapper extends Component {
@@ -104,16 +104,14 @@ export default class PaneWrapper extends Component {
         <Browser type={this.state.browser}
           onMenuButtonPress={this.onMenuButtonPress}
           onDevButtonPress={this.onDevButtonPress}/>
-        { /*
-           * <Pane style={{
-           *   right: this.state.panePadding,
-           *   transform: [
-           *     {translateX: this.state.screenWidth}
-           *   ]
-           *   }}>
-           *   <Dev/>
-           * </Pane>
-           */ }
+        <Pane style={{
+          right: this.state.panePadding,
+          transform: [
+            {translateX: this.state.screenWidth}
+          ]
+          }}>
+          <RightPane/>
+        </Pane>
       </Animated.View>
     );
   }
