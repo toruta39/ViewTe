@@ -75,18 +75,18 @@ export default class Browser extends Component {
       <View style={styles.container}>
         <BrowserHeader
           left={(
+            /* TODO: redux action */
             <VTButton type="menu" onPress={onMenuButtonPress} />
           )}
           right={(
+            /* TODO: redux action */
             <VTButton type="code" onPress={onDevButtonPress} />
           )}>
           UIWebView
         </BrowserHeader>
         <AddressBar currentUrl={currentUrl} isLoading={isLoading}
           onSubmitEditing={this.onAddressBarSubmitEditing}
-          onReload={this.onReload}
-          onMenuButtonPress={onMenuButtonPress}
-          onDevButtonPress={onDevButtonPress} />
+          onReload={this.onReload}/>
         <WebView style={styles.webview} source={{uri: gotoUrl}}
           onNavigationStateChange={this.onNavigationStateChange}
           ref={WEBVIEW_REF} {...additionalProps} />
