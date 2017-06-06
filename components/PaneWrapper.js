@@ -7,7 +7,7 @@ import {
   Dimensions
 } from 'react-native';
 import Browser from './Browser';
-import Menu from './Menu';
+import LeftPane from './LeftPane';
 import Dev from './Dev';
 import Pane from './Pane';
 
@@ -96,7 +96,7 @@ export default class PaneWrapper extends Component {
             {translateX: -this.state.screenWidth}
           ]
           }}>
-          <Menu onSelect={(browser) => {
+          <LeftPane onSelect={(browser) => {
             this.setState({activePane: 0, browser},
               () => this.moveToActivePane({spring: true}));
             }} />
