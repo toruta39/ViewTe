@@ -18,7 +18,7 @@ export default class Cell extends Component {
     const {children, onPress} = this.props;
 
     return (
-      <TouchableHighlight onPress={onPress}>
+      <TouchableHighlight onPress={onPress} underlayColor="#e4e0cf">
         <View style={styles.container}>
           <Text style={styles.text}>{children}</Text>
           <Image style={styles.accessory} source={require('./accessory.png')} />
