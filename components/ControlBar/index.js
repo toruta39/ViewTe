@@ -4,25 +4,31 @@ import {
   View,
   Image
 } from 'react-native';
-import IconButton from '../IconButton';
+import VTButton from '../VTButton';
 
 export default class ControlBar extends Component {
   render() {
     const {
       onBack,
       onForward,
+      onShare,
       isBackButtonEnabled,
       isForwardButtonEnabled
     } = this.props;
 
     return (
       <View style={styles.container}>
-        <IconButton onPress={onBack} style={styles.button}
-          source={require('./back.png')}
-          disabled={!isBackButtonEnabled} />
-        <IconButton onPress={onForward} style={styles.button}
-          source={require('./forward.png')}
-          disabled={!isForwardButtonEnabled} />
+        <View style={styles.left}>
+          <VTButton onPress={onBack} type="back"
+            disabled={!isBackButtonEnabled} />
+          <VTButton onPress={onForward} style={styles.forward} type="forward"
+            disabled={!isForwardButtonEnabled} />
+        </View>
+
+        <View style={styles.right}>
+          <VTButton onPress={() => 1} style={styles.share} type="share"
+            disabled={!isForwardButtonEnabled} />
+        </View>
       </View>
     );
   }
@@ -31,13 +37,19 @@ export default class ControlBar extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     alignItems: 'center',
-    height: 40,
-    borderTopWidth: 1,
-    borderTopColor: '#565656'
+    height: 52,
+    padding: 10
   },
-  button: {
-    padding: 8
+  forward: {
+    marginLeft: 16
+  },
+  left: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  right: {
+    flex: 0,
+    flexDirection: 'row'
   }
 });

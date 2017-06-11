@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import IconButton from '../IconButton';
+import VTButton from '../VTButton';
 import {
   Animated
 } from 'react-native';
@@ -44,7 +44,10 @@ export default class ReloadButton extends Component {
           }
         ]
         }}>
-        <IconButton onPress={this.onPress} source={require('./reload.png')} />
+        <VTButton onPress={this.onPress} type="reload" style={{
+          width: 20,
+          height: 20
+        }} />
       </Animated.View>
     );
   }

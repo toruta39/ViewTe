@@ -101,8 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: '#f7df1e'
+    alignItems: 'stretch'
   },
   webview: {
     flex: 1
