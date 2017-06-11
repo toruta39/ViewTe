@@ -5,9 +5,17 @@ import {
   TextInput,
   Button
 } from 'react-native';
+import PropTypes from 'prop-types';
 import ReloadButton from '../ReloadButton';
 
 export default class AddressBar extends Component {
+  static propTypes = {
+    currentUrl: PropTypes.string,
+    onSubmitEditing: PropTypes.func.isRequired,
+    onReload: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool
+  }
+
   state = {
     inputUrl: '',
     selection: {
@@ -66,9 +74,7 @@ export default class AddressBar extends Component {
   render() {
     const {
       onReload,
-      isLoading,
-      onMenuButtonPress,
-      onDevButtonPress
+      isLoading
     } = this.props;
     const {inputUrl, selection} = this.state;
 

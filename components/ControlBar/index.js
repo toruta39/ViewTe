@@ -24,7 +24,6 @@ export default class ControlBar extends Component {
           <VTButton onPress={onForward} style={styles.forward} type="forward"
             disabled={!isForwardButtonEnabled} />
         </View>
-
         <View style={styles.right}>
           <VTButton onPress={() => 1} style={styles.share} type="share"
             disabled={!isForwardButtonEnabled} />
