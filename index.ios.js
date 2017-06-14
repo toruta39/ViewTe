@@ -25,7 +25,6 @@ export default class WebviewTester extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
     justifyContent: 'center',
     alignItems: 'stretch',
     backgroundColor: '#fec207'

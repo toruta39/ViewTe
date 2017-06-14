@@ -33,14 +33,14 @@ export default class PaneWrapper extends Component {
   render() {
     return (
       <View style={styles.container} onLayout={this.onLayout}>
-        {this.state.activePane === 0 && <Pane>
+        {<Pane x={0}>
           <EnvironmentPanel
             onSelect={(browser) => this.setState({activePane: 2, browser})} />
         </Pane>}
-        {this.state.activePane === 1 && <Pane>
+        {<Pane x={0}>
           <DevelopmentPanel/>
         </Pane>}
-        {this.state.activePane === 2 && <Pane>
+        {this.state.activePane === 2 && <Pane x={-100}>
           <Browser type={this.state.browser}
             onMenuButtonPress={this.onMenuButtonPress}
             onDevButtonPress={this.onDevButtonPress} />
