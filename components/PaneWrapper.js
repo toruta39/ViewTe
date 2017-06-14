@@ -13,34 +13,44 @@ import Pane from './Pane';
 
 export default class PaneWrapper extends Component {
   state = {
-    activePane: 2,
+    browserOffsetX: 0,
     screenWidth: Dimensions.get('window').width,
     browser: Object.keys(Browser.types)[0]
   }
 
   onLayout = ({nativeEvent: {layout: {width}}}) => {
-    this.setState({screenWidth: width});
+    this.setState((state) => ({
+      screenWidth: width,
+      browserOffsetX: state.browserOffsetX < 0 ? -width + 50 :
+        state.browserOffsetX > 0 ? width - 50 : 0
+    }));
   }
 
   onMenuButtonPress = () => {
-    this.setState({activePane: 0});
+    this.setState((state) => ({
+      browserOffsetX: state.browserOffsetX ? 0 : state.screenWidth - 50
+    }));
   }
 
   onDevButtonPress = () => {
-    this.setState({activePane: 1});
+    this.setState((state) => ({
+      browserOffsetX: state.browserOffsetX ? 0 : -state.screenWidth + 50
+    }));
   }
 
   render() {
+    const { browserOffsetX } = this.state;
+
     return (
       <View style={styles.container} onLayout={this.onLayout}>
-        {<Pane x={0}>
+        {browserOffsetX > 0 && <Pane>
           <EnvironmentPanel
             onSelect={(browser) => this.setState({activePane: 2, browser})} />
         </Pane>}
-        {<Pane x={0}>
+        {browserOffsetX < 0 && <Pane>
           <DevelopmentPanel/>
         </Pane>}
-        {this.state.activePane === 2 && <Pane x={-100}>
+        {<Pane x={browserOffsetX}>
           <Browser type={this.state.browser}
             onMenuButtonPress={this.onMenuButtonPress}
             onDevButtonPress={this.onDevButtonPress} />
