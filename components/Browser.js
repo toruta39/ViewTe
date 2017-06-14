@@ -5,7 +5,8 @@ import {
   View,
   WebView,
   TextInput,
-  Text
+  Text,
+  Platform
 } from 'react-native';
 import WKWebView from 'react-native-wkwebview-reborn';
 import AddressBar from './AddressBar';
@@ -16,15 +17,22 @@ import VTButton from './VTButton';
 
 const WEBVIEW_REF = 'webview';
 
-export default class Browser extends Component {
-  static types = {
+const types = Platform.select({
+  ios: {
     'UIWebView': WebView,
     'WKWebView': WKWebView,
     'SFSafariViewController': SafariViewCaller
+  },
+  android: {
+    'WebView': WebView,
   }
+});
+
+export default class Browser extends Component {
+  static types = types
 
   static propTypes = {
-    type: PropTypes.oneOf(['UIWebView', 'WKWebView', 'SafariView']).isRequired,
+    type: PropTypes.oneOf(Object.keys(types)).isRequired,
     onMenuButtonPress: PropTypes.func.isRequired,
     onDevButtonPress: PropTypes.func.isRequired
   }
@@ -63,7 +71,7 @@ export default class Browser extends Component {
   onBack = () => this.refs[WEBVIEW_REF].goBack()
 
   render() {
-    const {type, onMenuButtonPress, onDevButtonPress} = this.props;
+    const {type, onMenuButtonPress, onDevButtonPress, style} = this.props;
     const {currentUrl, gotoUrl, isLoading} = this.state;
 
     const WebView = Browser.types[type];
@@ -72,7 +80,7 @@ export default class Browser extends Component {
     } : {};
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         <BrowserHeader
           left={(
             /* TODO: redux action */
@@ -82,7 +90,7 @@ export default class Browser extends Component {
             /* TODO: redux action */
             <VTButton type="code" onPress={onDevButtonPress} />
           )}>
-          UIWebView
+          {type}
         </BrowserHeader>
         <AddressBar currentUrl={currentUrl} isLoading={isLoading}
           onSubmitEditing={this.onAddressBarSubmitEditing}
@@ -101,7 +109,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    backgroundColor: '#fec207'
   },
   webview: {
     flex: 1
