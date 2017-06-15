@@ -39,11 +39,12 @@ export default class Browser extends Component {
   }
 
   state = {
-    currentUrl: 'https://www.google.com',
+    currentUrl: 'https://www.github.com/toruta39/ViewTe',
     isBackButtonEnabled: false,
     isForwardButtonEnabled: false,
     isLoading: false,
-    gotoUrl: 'https://www.google.com' // to trigger navigation in webview
+    // to trigger navigation in webview
+    gotoUrl: 'https://www.github.com/toruta39/ViewTe'
   }
 
   onNavigationStateChange = (navState) => {
