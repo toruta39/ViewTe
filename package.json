@@ -1,5 +1,5 @@
 {
-  "name": "WebviewTester",
+  "name": "ViewTe",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -17,7 +17,11 @@
     "babel-jest": "19.0.0",
     "babel-preset-react-native": "1.9.1",
     "jest": "19.0.2",
-    "react-test-renderer": "16.0.0-alpha.6"
+    "react-redux": "^5.0.5",
+    "react-test-renderer": "16.0.0-alpha.6",
+    "redux": "^3.6.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0"
   },
   "jest": {
     "preset": "react-native"

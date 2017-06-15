@@ -1,4 +1,4 @@
-# WebviewTester
+# ViewTe
 
 A minimalistic webview tester designed for web developers
 

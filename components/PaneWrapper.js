@@ -7,114 +7,55 @@ import {
   Dimensions
 } from 'react-native';
 import Browser from './Browser';
-import Menu from './Menu';
-import Dev from './Dev';
+import EnvironmentPanel from './LeftPane';
+import DevelopmentPanel from './RightPane';
 import Pane from './Pane';
 
 export default class PaneWrapper extends Component {
   state = {
-    activePane: 0,
-    panePadding: 0,
-    slideablePadding: 10,
-    panX: new Animated.Value(0),
+    browserOffsetX: 0,
     screenWidth: Dimensions.get('window').width,
     browser: Object.keys(Browser.types)[0]
   }
 
   onLayout = ({nativeEvent: {layout: {width}}}) => {
-    this.setState((state) => {
-      return {
-        screenWidth: width,
-        paneWidth: width - this.state.panePadding
-      };
-    }, () => this.moveToActivePane({spring: false}));
-  }
-
-  moveToActivePane = ({spring}) => {
-    const panX = this.state.activePane * -this.state.paneWidth;
-
-    if (spring) {
-      Animated.spring(this.state.panX, {
-        toValue: panX,
-        bounciness: 0
-      }).start();
-    } else {
-      this.state.panX.setValue(panX);
-    }
+    this.setState((state) => ({
+      screenWidth: width,
+      browserOffsetX: state.browserOffsetX < 0 ? -width + 50 :
+        state.browserOffsetX > 0 ? width - 50 : 0
+    }));
   }
 
   onMenuButtonPress = () => {
-    this.setState((state) => {
-      return {activePane: -1};
-    }, () => this.moveToActivePane({spring: true}));
+    this.setState((state) => ({
+      browserOffsetX: state.browserOffsetX ? 0 : state.screenWidth - 50
+    }));
   }
 
   onDevButtonPress = () => {
-    this.setState((state) => {
-      return {activePane: 1};
-    }, () => this.moveToActivePane({spring: true}));
-  }
-
-  componentWillMount() {
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponderCapture: ({nativeEvent}) => {
-        return nativeEvent.pageX < this.state.slideablePadding ||
-          nativeEvent.pageX > this.state.screenWidth - this.state.slideablePadding;
-      },
-      onMoveShouldSetPanResponderCapture: ({nativeEvent}) => {
-        return nativeEvent.pageX < this.state.slideablePadding ||
-          nativeEvent.pageX > this.state.screenWidth - this.state.slideablePadding;
-      },
-      onPanResponderMove: (e, {dx}) => {
-        this.state.panX.setValue(
-          dx + this.state.activePane * -this.state.paneWidth);
-      },
-      onPanResponderRelease: (e, {dx}) => {
-        const deltaPane = dx > 100 ? 1 :
-        dx < -100 ? -1 : 0;
-
-        this.setState((state) => {
-          let activePane = state.activePane - deltaPane;
-          activePane = Math.max(-1, Math.min(1, activePane));
-          return {activePane};
-        }, () => this.moveToActivePane({spring: true}));
-      }
-    });
+    this.setState((state) => ({
+      browserOffsetX: state.browserOffsetX ? 0 : -state.screenWidth + 50
+    }));
   }
 
   render() {
+    const { browserOffsetX } = this.state;
+
     return (
-      <Animated.View style={[styles.container, {
-        transform: [
-          {translateX: this.state.panX}
-        ]
-        }]}
-        {...this._panResponder.panHandlers} onLayout={this.onLayout}>
-        <Pane style={{
-          left: this.state.panePadding,
-          transform: [
-            {translateX: -this.state.screenWidth}
-          ]
-          }}>
-          <Menu onSelect={(browser) => {
-            this.setState({activePane: 0, browser},
-              () => this.moveToActivePane({spring: true}));
-            }} />
-        </Pane>
-        <Browser type={this.state.browser}
-          onMenuButtonPress={this.onMenuButtonPress}
-          onDevButtonPress={this.onDevButtonPress}/>
-        { /*
-           * <Pane style={{
-           *   right: this.state.panePadding,
-           *   transform: [
-           *     {translateX: this.state.screenWidth}
-           *   ]
-           *   }}>
-           *   <Dev/>
-           * </Pane>
-           */ }
-      </Animated.View>
+      <View style={styles.container} onLayout={this.onLayout}>
+        {browserOffsetX > 0 && <Pane>
+          <EnvironmentPanel
+            onSelect={(browser) => this.setState({activePane: 2, browser})} />
+        </Pane>}
+        {browserOffsetX < 0 && <Pane>
+          <DevelopmentPanel/>
+        </Pane>}
+        {<Pane x={browserOffsetX}>
+          <Browser type={this.state.browser}
+            onMenuButtonPress={this.onMenuButtonPress}
+            onDevButtonPress={this.onDevButtonPress} />
+        </Pane>}
+      </View>
     );
   }
 }

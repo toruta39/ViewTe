@@ -5,9 +5,17 @@ import {
   TextInput,
   Button
 } from 'react-native';
+import PropTypes from 'prop-types';
 import ReloadButton from '../ReloadButton';
 
 export default class AddressBar extends Component {
+  static propTypes = {
+    currentUrl: PropTypes.string,
+    onSubmitEditing: PropTypes.func.isRequired,
+    onReload: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool
+  }
+
   state = {
     inputUrl: '',
     selection: {
@@ -54,32 +62,27 @@ export default class AddressBar extends Component {
 
   onFocus = () => {
     // by default, cursor will be placed at the end of text after being
-    // focused, so i delay selecting all text for 100ms after the default
-    // behavior
+    // focused, so i delay selecting all text after the default behavior
     setTimeout(() => this.setState({
       selection: {
         start: 0,
         end: this.state.inputUrl.length
       }
-    }), 100);
+    }), 300);
   }
 
   render() {
     const {
       onReload,
-      isLoading,
-      onMenuButtonPress,
-      onDevButtonPress
+      isLoading
     } = this.props;
     const {inputUrl, selection} = this.state;
 
     return (
       <View style={styles.container}>
-        <Button style={styles.button} title="Menu" color="#565656"
-          onPress={onMenuButtonPress}/>
-        <View style={styles.fieldBackground}>
-          <View style={styles.fieldWrapper}>
-            <TextInput style={styles.field} value={inputUrl}
+        <View style={styles.background}>
+          <View style={styles.inputWrapper}>
+            <TextInput style={styles.input} value={inputUrl}
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="url"
@@ -91,7 +94,7 @@ export default class AddressBar extends Component {
               underlineColorAndroid="transparent"
               returnKeyType="go"/>
           </View>
-          <View style={styles.reloadButtonWrapper}>
+          <View style={styles.buttonWrapper}>
             <ReloadButton onPress={onReload} isLoading={isLoading} />
           </View>
         </View>
@@ -102,33 +105,31 @@ export default class AddressBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingBottom: 10,
     alignItems: 'center',
-    height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: '#565656'
+    height: 42
   },
-  fieldBackground: {
-    marginLeft: 10,
+  background: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
-    borderRadius: 4,
-    backgroundColor: '#565656',
+    paddingLeft: 10,
+    paddingRight: 6,
+    borderRadius: 3,
+    backgroundColor: '#fff',
     flex: 1,
-    height: 30
+    height: 32
   },
-  fieldWrapper: {
+  inputWrapper: {
     flex: 1
   },
-  field: {
+  input: {
     fontSize: 16,
     padding: 0,
     height: 24,
-    color: '#f7df1e'
+    color: '#4b4739'
   },
-  reloadButtonWrapper: {
+  buttonWrapper: {
     marginLeft: 10,
     flexDirection: 'row',
     alignItems: 'center'
