@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import StyleSheet from '../utils/CrossPlatformStyleSheet';
+import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
   View
 } from 'react-native';
-import PaneWrapper from './PaneWrapper';
+import PaneSlider from '../PaneSlider';
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <PaneWrapper />
+        <PaneSlider />
       </View>
     );
   }

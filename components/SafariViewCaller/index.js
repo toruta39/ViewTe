@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import StyleSheet from '../utils/CrossPlatformStyleSheet';
+import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
   Alert,
   View,

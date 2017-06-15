@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import StyleSheet from '../utils/CrossPlatformStyleSheet';
+import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import PropTypes from 'prop-types';
 import {
   View,
   WebView,
   TextInput,
   Text,
-  Platform
+  Platform,
+  Share
 } from 'react-native';
 import WKWebView from 'react-native-wkwebview-reborn';
-import AddressBar from './AddressBar';
-import ControlBar from './ControlBar';
-import SafariViewCaller from './SafariViewCaller';
-import BrowserHeader from './BrowserHeader';
-import VTButton from './VTButton';
+import AddressBar from '../AddressBar';
+import ControlBar from '../ControlBar';
+import SafariViewCaller from '../SafariViewCaller';
+import BrowserHeader from '../BrowserHeader';
+import VTButton from '../VTButton';
 
 const WEBVIEW_REF = 'webview';
 
@@ -70,6 +71,8 @@ export default class Browser extends Component {
 
   onBack = () => this.refs[WEBVIEW_REF].goBack()
 
+  onShare = () => Share.share({message: this.state.currentUrl})
+
   render() {
     const {type, onMenuButtonPress, onDevButtonPress, style} = this.props;
     const {currentUrl, gotoUrl, isLoading} = this.state;
@@ -99,7 +102,7 @@ export default class Browser extends Component {
           onNavigationStateChange={this.onNavigationStateChange}
           ref={WEBVIEW_REF} {...additionalProps} />
         <ControlBar {...this.state} onForward={this.onForward}
-          onBack={this.onBack} />
+          onBack={this.onBack} onShare={this.onShare} />
       </View>
     );
   }
