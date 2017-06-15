@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import StyleSheet from '../utils/CrossPlatformStyleSheet';
+import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
-  AppRegistry,
-  Text,
   View
 } from 'react-native';
-import Browser from './Browser';
+import PaneSlider from '../PaneSlider';
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Browser />
+        <PaneSlider />
       </View>
     );
   }
