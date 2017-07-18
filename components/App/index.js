@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
-  View
+  View,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import {
   Provider
@@ -15,9 +17,11 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <PaneSlider />
-        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.container}>
+            <PaneSlider />
+          </View>
+        </TouchableWithoutFeedback>
       </Provider>
     );
   }
