@@ -16,20 +16,9 @@ import { connect } from 'react-redux';
 
 class AddressBar extends Component {
   static propTypes = {
-    currentUrl: PropTypes.string,
     onSubmitEditing: PropTypes.func.isRequired,
     onReload: PropTypes.func.isRequired,
     isLoading: PropTypes.bool
-  }
-
-  componentDidMount() {
-    this.props.updateInputUrl(this.props.currentUrl);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUrl !== this.props.currentUrl) {
-      this.props.updateInputUrl(nextProps.currentUrl);
-    }
   }
 
   onFieldChange = ({nativeEvent:{text}}) => {
@@ -91,7 +80,6 @@ class AddressBar extends Component {
 
 export default connect((state) => ({
   inputUrl: state.browser.inputUrl,
-  currentUrl: state.browser.currentUrl,
   selection: state.browser.selection,
   isLoading: state.browser.isLoading
 }), {

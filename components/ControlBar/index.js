@@ -4,9 +4,10 @@ import {
   View,
   Image
 } from 'react-native';
+import { connect } from 'react-redux';
 import VTButton from '../VTButton';
 
-export default class ControlBar extends Component {
+class ControlBar extends Component {
   render() {
     const {
       onBack,
@@ -25,13 +26,17 @@ export default class ControlBar extends Component {
             disabled={!isForwardButtonEnabled} />
         </View>
         <View style={styles.right}>
-          <VTButton onPress={onShare} style={styles.share} type="share"
-            disabled={!isForwardButtonEnabled} />
+          <VTButton onPress={onShare} style={styles.share} type="share" />
         </View>
       </View>
     );
   }
 }
+
+export default connect((state) => ({
+  isBackButtonEnabled: state.browser.isBackButtonEnabled,
+  isForwardButtonEnabled: state.browser.isForwardButtonEnabled
+}))(ControlBar);
 
 const styles = StyleSheet.create({
   container: {

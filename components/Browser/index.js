@@ -69,9 +69,7 @@ class Browser extends Component {
       onMenuButtonPress,
       onDevButtonPress,
       style,
-      currentUrl,
-      gotoUrl,
-      isLoading
+      gotoUrl
     } = this.props;
 
     const WebView = Browser.types[type];
@@ -92,8 +90,7 @@ class Browser extends Component {
           )}>
           {type}
         </BrowserHeader>
-        <AddressBar currentUrl={currentUrl} isLoading={isLoading}
-          onSubmitEditing={this.onAddressBarSubmitEditing}
+        <AddressBar onSubmitEditing={this.onAddressBarSubmitEditing}
           onReload={this.onReload}/>
         <WebView style={styles.webview} source={{uri: gotoUrl}}
           onNavigationStateChange={this.onNavigationStateChange}
@@ -106,10 +103,6 @@ class Browser extends Component {
 }
 
 export default connect((state) => ({
-  currentUrl: state.browser.currentUrl,
-  isBackButtonEnabled: state.browser.isBackButtonEnabled,
-  isForwardButtonEnabled: state.browser.isForwardButtonEnabled,
-  isLoading: state.browser.isLoading,
   gotoUrl: state.browser.gotoUrl
 }), {
   updateNavState,

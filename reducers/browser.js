@@ -5,7 +5,6 @@ export default (state = {
   isLoading: true,
   isBackButtonEnabled: false,
   isForwardButtonEnabled: false,
-  currentUrl: 'https://www.github.com/toruta39/ViewTe',
   // to trigger navigation in webview
   gotoUrl: 'https://www.github.com/toruta39/ViewTe',
   inputUrl: '',
@@ -38,7 +37,7 @@ export default (state = {
         ...state,
         isBackButtonEnabled: action.navState.canGoBack,
         isForwardButtonEnabled: action.navState.canGoForward,
-        currentUrl: action.navState.url,
+        inputUrl: action.navState.url,
         isLoading: action.navState.loading
       };
     case ActionTypes.UPDATE_GOTO_URL:
