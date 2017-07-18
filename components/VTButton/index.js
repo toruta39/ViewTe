@@ -18,15 +18,17 @@ const iconTable = {
 export default class VTButton extends Component {
   static propTypes = {
     type: PropTypes.oneOf(Object.keys(iconTable)).isRequired,
-    onPress: PropTypes.func.isRequired
+    onPress: PropTypes.func.isRequired,
+    disabled: PropTypes.bool
   }
 
   render() {
-    const {type, style, onPress} = this.props;
+    const {type, style, onPress, disabled} = this.props;
 
     return (
-      <TouchableOpacity onPress={onPress}>
-        <Image source={iconTable[type]} style={[styles.icon, style]}/>
+      <TouchableOpacity onPress={!disabled && onPress}>
+        <Image source={iconTable[type]}
+          style={[styles.icon, disabled && styles.disabled, style]}/>
       </TouchableOpacity>
     );
   }
@@ -36,5 +38,8 @@ const styles = StyleSheet.create({
   icon: {
     width: 32,
     height: 32
+  },
+  disabled: {
+    opacity: 0.2
   }
 });
