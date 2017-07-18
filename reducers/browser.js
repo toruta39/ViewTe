@@ -7,6 +7,9 @@ export default (state = {
   isForwardButtonEnabled: false,
   // to trigger navigation in webview
   gotoUrl: 'https://www.github.com/toruta39/ViewTe',
+  // for url sharing
+  currentUrl: '',
+  // for address bar editing
   inputUrl: '',
   selection: {
     start: 0,
@@ -37,6 +40,7 @@ export default (state = {
         ...state,
         isBackButtonEnabled: action.navState.canGoBack,
         isForwardButtonEnabled: action.navState.canGoForward,
+        currentUrl: action.navState.url,
         inputUrl: action.navState.url,
         isLoading: action.navState.loading
       };

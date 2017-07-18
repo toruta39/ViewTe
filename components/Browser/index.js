@@ -6,8 +6,7 @@ import {
   WebView,
   TextInput,
   Text,
-  Platform,
-  Share
+  Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import WKWebView from 'react-native-wkwebview-reborn';
@@ -61,8 +60,6 @@ class Browser extends Component {
 
   onBack = () => this.refs[WEBVIEW_REF].goBack()
 
-  onShare = () => Share.share({message: this.props.currentUrl})
-
   render() {
     const {
       type,
@@ -96,7 +93,7 @@ class Browser extends Component {
           onNavigationStateChange={this.onNavigationStateChange}
           ref={WEBVIEW_REF} {...additionalProps} />
         <ControlBar {...this.state} onForward={this.onForward}
-          onBack={this.onBack} onShare={this.onShare} />
+          onBack={this.onBack} />
       </View>
     );
   }

@@ -6,15 +6,16 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import VTButton from '../VTButton';
+import { shareCurrentUrl } from '../../actions';
 
 class ControlBar extends Component {
   render() {
     const {
       onBack,
       onForward,
-      onShare,
       isBackButtonEnabled,
-      isForwardButtonEnabled
+      isForwardButtonEnabled,
+      shareCurrentUrl
     } = this.props;
 
     return (
@@ -26,7 +27,7 @@ class ControlBar extends Component {
             disabled={!isForwardButtonEnabled} />
         </View>
         <View style={styles.right}>
-          <VTButton onPress={onShare} style={styles.share} type="share" />
+          <VTButton onPress={shareCurrentUrl} style={styles.share} type="share" />
         </View>
       </View>
     );
@@ -35,8 +36,11 @@ class ControlBar extends Component {
 
 export default connect((state) => ({
   isBackButtonEnabled: state.browser.isBackButtonEnabled,
-  isForwardButtonEnabled: state.browser.isForwardButtonEnabled
-}))(ControlBar);
+  isForwardButtonEnabled: state.browser.isForwardButtonEnabled,
+  currentUrl: state.browser.currentUrl
+}), {
+  shareCurrentUrl
+})(ControlBar);
 
 const styles = StyleSheet.create({
   container: {

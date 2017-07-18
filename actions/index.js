@@ -1,3 +1,5 @@
+import { Share } from 'react-native';
+
 export const UPDATE_INPUT_URL = 'UPDATE_INPUT_URL';
 export const updateInputUrl = (inputUrl) => ({
   type: UPDATE_INPUT_URL,
@@ -26,3 +28,8 @@ export const updateGotoUrl = (gotoUrl) => ({
   type: UPDATE_GOTO_URL,
   gotoUrl
 });
+
+export const SHARE_CURRENT_URL = 'SHARE_CURRENT_URL';
+export const shareCurrentUrl = () => (dispatch, getState) => {
+  return Share.share({message: getState().browser.currentUrl});
+};
