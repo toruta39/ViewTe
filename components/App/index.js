@@ -8,7 +8,7 @@ import {
 import {
   Provider
 } from 'react-redux';
-import PaneSlider from '../PaneSlider';
+import PanelSlider from '../PanelSlider';
 import configureStore from '../../store/configureStore';
 
 const store = configureStore();
@@ -19,7 +19,7 @@ export default class App extends Component {
       <Provider store={store}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.container}>
-            <PaneSlider />
+            <PanelSlider />
           </View>
         </TouchableWithoutFeedback>
       </Provider>

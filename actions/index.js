@@ -33,3 +33,9 @@ export const SHARE_CURRENT_URL = 'SHARE_CURRENT_URL';
 export const shareCurrentUrl = () => (dispatch, getState) => {
   return Share.share({message: getState().browser.currentUrl});
 };
+
+export const UPDATE_ACTIVE_PANEL = 'UPDATE_ACTIVE_PANEL';
+export const updateActivePanel = (activePanel) => ({
+  type: UPDATE_ACTIVE_PANEL,
+  activePanel
+});

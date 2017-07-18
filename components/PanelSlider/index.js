@@ -6,12 +6,18 @@ import {
   PanResponder,
   Dimensions
 } from 'react-native';
+import { connect } from 'react-redux';
 import Browser from '../Browser';
 import EnvironmentPanel from '../EnvironmentPanel';
 import DevelopmentPanel from '../DevelopmentPanel';
 import Pane from '../Pane';
+import {
+  updateActivePanel
+} from '../../actions';
 
-export default class PaneSlider extends Component {
+const PANEL_PADDING = 50;
+
+class PanelSlider extends Component {
   state = {
     browserOffsetX: 0,
     browserAnimatedX: 0,
@@ -22,26 +28,29 @@ export default class PaneSlider extends Component {
   onLayout = ({nativeEvent: {layout: {width}}}) => {
     this.setState((state) => ({
       screenWidth: width,
-      browserOffsetX: state.browserOffsetX < 0 ? -width + 50 :
-        state.browserOffsetX > 0 ? width - 50 : 0
+      browserOffsetX:
+        this.props.activePanel === 'development' ?
+          -width + PANEL_PADDING :
+        this.props.activePanel === 'environment' ?
+          width - PANEL_PADDING :
+        0
     }));
   }
 
-  onMenuButtonPress = () => {
-    this.setState((state) => ({
-      browserOffsetX: state.screenWidth - 50
-    }));
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activePanel !== this.props.activePanel) {
+      this.setState((state) => ({
+        browserOffsetX:
+          nextProps.activePanel === 'development' ?
+            -state.screenWidth + PANEL_PADDING :
+          nextProps.activePanel === 'environment' ?
+            state.screenWidth - PANEL_PADDING :
+          0
+      }));
+    }
   }
 
-  onDevButtonPress = () => {
-    this.setState((state) => ({
-      browserOffsetX: -state.screenWidth + 50
-    }));
-  }
-
-  onShadePress = () => {
-    this.setState({ browserOffsetX: 0 });
-  }
+  onShadePress = () => this.props.updateActivePanel('browser')
 
   render() {
     const { browserOffsetX, browserAnimatedX } = this.state;
@@ -58,14 +67,18 @@ export default class PaneSlider extends Component {
         {<Pane x={browserOffsetX}
           onAnimate={({value}) => this.setState({browserAnimatedX: value})}
           onShadePress={this.onShadePress}>
-          <Browser type={this.state.browser}
-            onMenuButtonPress={this.onMenuButtonPress}
-            onDevButtonPress={this.onDevButtonPress} />
+          <Browser type={this.state.browser} />
         </Pane>}
       </View>
     );
   }
 }
+
+export default connect((state) => ({
+  activePanel: state.panel.activePanel
+}), {
+  updateActivePanel
+})(PanelSlider);
 
 const styles = StyleSheet.create({
   container: {

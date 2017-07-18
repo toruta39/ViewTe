@@ -17,7 +17,8 @@ import BrowserHeader from '../BrowserHeader';
 import VTButton from '../VTButton';
 import {
   updateNavState,
-  updateGotoUrl
+  updateGotoUrl,
+  updateActivePanel
 } from '../../actions';
 
 const WEBVIEW_REF = 'webview';
@@ -37,9 +38,7 @@ class Browser extends Component {
   static types = types
 
   static propTypes = {
-    type: PropTypes.oneOf(Object.keys(types)).isRequired,
-    onMenuButtonPress: PropTypes.func.isRequired,
-    onDevButtonPress: PropTypes.func.isRequired
+    type: PropTypes.oneOf(Object.keys(types)).isRequired
   }
 
   onNavigationStateChange = (navState) => {
@@ -63,10 +62,9 @@ class Browser extends Component {
   render() {
     const {
       type,
-      onMenuButtonPress,
-      onDevButtonPress,
       style,
-      gotoUrl
+      gotoUrl,
+      updateActivePanel
     } = this.props;
 
     const WebView = Browser.types[type];
@@ -78,12 +76,12 @@ class Browser extends Component {
       <View style={[styles.container, style]}>
         <BrowserHeader
           left={(
-            /* TODO: redux action */
-            <VTButton type="menu" onPress={onMenuButtonPress} />
+            <VTButton type="menu"
+              onPress={() => updateActivePanel('environment')} />
           )}
           right={(
-            /* TODO: redux action */
-            <VTButton type="code" onPress={onDevButtonPress} />
+            <VTButton type="code"
+              onPress={() => updateActivePanel('development')} />
           )}>
           {type}
         </BrowserHeader>
@@ -103,7 +101,8 @@ export default connect((state) => ({
   gotoUrl: state.browser.gotoUrl
 }), {
   updateNavState,
-  updateGotoUrl
+  updateGotoUrl,
+  updateActivePanel
 })(Browser);
 
 const styles = StyleSheet.create({
