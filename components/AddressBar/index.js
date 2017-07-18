@@ -7,8 +7,14 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import ReloadButton from '../ReloadButton';
+import {
+  updateInputUrl,
+  updateSelection,
+  selectAll
+} from '../../actions';
+import { connect } from 'react-redux';
 
-export default class AddressBar extends Component {
+class AddressBar extends Component {
   static propTypes = {
     currentUrl: PropTypes.string,
     onSubmitEditing: PropTypes.func.isRequired,
@@ -16,32 +22,18 @@ export default class AddressBar extends Component {
     isLoading: PropTypes.bool
   }
 
-  state = {
-    inputUrl: '',
-    selection: {
-      start: 0,
-      end: 0
-    }
-  }
-
   componentDidMount() {
-    this.setState({
-      inputUrl: this.props.currentUrl
-    });
+    this.props.updateInputUrl(this.props.currentUrl);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUrl !== this.props.currentUrl) {
-      this.setState({
-        inputUrl: nextProps.currentUrl
-      });
+      this.props.updateInputUrl(nextProps.currentUrl);
     }
   }
 
   onFieldChange = ({nativeEvent:{text}}) => {
-    this.setState({
-      inputUrl: text
-    });
+    this.props.updateInputUrl(text);
   }
 
   onSubmitEditing = ({nativeEvent: {text}}) => {
@@ -55,28 +47,22 @@ export default class AddressBar extends Component {
   }
 
   onSelectionChange = ({nativeEvent: {selection}}) => {
-    this.setState({
-      selection: selection
-    });
+    this.props.updateSelection(selection);
   }
 
   onFocus = () => {
     // by default, cursor will be placed at the end of text after being
     // focused, so i delay selecting all text after the default behavior
-    setTimeout(() => this.setState({
-      selection: {
-        start: 0,
-        end: this.state.inputUrl.length
-      }
-    }), 300);
+    setTimeout(() => this.props.selectAll(), 100);
   }
 
   render() {
     const {
       onReload,
-      isLoading
+      isLoading,
+      inputUrl,
+      selection
     } = this.props;
-    const {inputUrl, selection} = this.state;
 
     return (
       <View style={styles.container}>
@@ -102,6 +88,17 @@ export default class AddressBar extends Component {
     );
   }
 }
+
+export default connect((state) => ({
+  inputUrl: state.browser.inputUrl,
+  currentUrl: state.browser.currentUrl,
+  selection: state.browser.selection,
+  isLoading: state.browser.isLoading
+}), {
+  updateInputUrl,
+  updateSelection,
+  selectAll
+})(AddressBar);
 
 const styles = StyleSheet.create({
   container: {

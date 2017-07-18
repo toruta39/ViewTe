@@ -9,12 +9,17 @@ import {
   Platform,
   Share
 } from 'react-native';
+import { connect } from 'react-redux';
 import WKWebView from 'react-native-wkwebview-reborn';
 import AddressBar from '../AddressBar';
 import ControlBar from '../ControlBar';
 import SafariViewCaller from '../SafariViewCaller';
 import BrowserHeader from '../BrowserHeader';
 import VTButton from '../VTButton';
+import {
+  updateNavState,
+  updateGotoUrl
+} from '../../actions';
 
 const WEBVIEW_REF = 'webview';
 
@@ -29,7 +34,7 @@ const types = Platform.select({
   }
 });
 
-export default class Browser extends Component {
+class Browser extends Component {
   static types = types
 
   static propTypes = {
@@ -38,29 +43,13 @@ export default class Browser extends Component {
     onDevButtonPress: PropTypes.func.isRequired
   }
 
-  state = {
-    currentUrl: 'https://www.github.com/toruta39/ViewTe',
-    isBackButtonEnabled: false,
-    isForwardButtonEnabled: false,
-    isLoading: false,
-    // to trigger navigation in webview
-    gotoUrl: 'https://www.github.com/toruta39/ViewTe'
-  }
-
   onNavigationStateChange = (navState) => {
-    this.setState({
-      isBackButtonEnabled: navState.canGoBack,
-      isForwardButtonEnabled: navState.canGoForward,
-      currentUrl: navState.url,
-      isLoading: navState.loading
-    });
+    this.props.updateNavState(navState);
   }
 
   onAddressBarSubmitEditing = ({url}) => {
-    if (url !== this.state.gotoUrl) {
-      this.setState({
-        gotoUrl: url
-      });
+    if (url !== this.props.gotoUrl) {
+      this.props.updateGotoUrl(url);
     } else {
       this.refs[WEBVIEW_REF].reload();
     }
@@ -72,11 +61,18 @@ export default class Browser extends Component {
 
   onBack = () => this.refs[WEBVIEW_REF].goBack()
 
-  onShare = () => Share.share({message: this.state.currentUrl})
+  onShare = () => Share.share({message: this.props.currentUrl})
 
   render() {
-    const {type, onMenuButtonPress, onDevButtonPress, style} = this.props;
-    const {currentUrl, gotoUrl, isLoading} = this.state;
+    const {
+      type,
+      onMenuButtonPress,
+      onDevButtonPress,
+      style,
+      currentUrl,
+      gotoUrl,
+      isLoading
+    } = this.props;
 
     const WebView = Browser.types[type];
     const additionalProps = type === 'WKWebView' ? {
@@ -108,6 +104,17 @@ export default class Browser extends Component {
     );
   }
 }
+
+export default connect((state) => ({
+  currentUrl: state.browser.currentUrl,
+  isBackButtonEnabled: state.browser.isBackButtonEnabled,
+  isForwardButtonEnabled: state.browser.isForwardButtonEnabled,
+  isLoading: state.browser.isLoading,
+  gotoUrl: state.browser.gotoUrl
+}), {
+  updateNavState,
+  updateGotoUrl
+})(Browser);
 
 const styles = StyleSheet.create({
   container: {
