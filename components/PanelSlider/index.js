@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Browser from '../Browser';
 import EnvironmentPanel from '../EnvironmentPanel';
 import DevelopmentPanel from '../DevelopmentPanel';
-import Pane from '../Pane';
+import Panel from '../Panel';
 import {
   updateActivePanel
 } from '../../actions';
@@ -57,18 +57,18 @@ class PanelSlider extends Component {
 
     return (
       <View style={styles.container} onLayout={this.onLayout}>
-        {browserAnimatedX > 0 && <Pane style={{ paddingRight: 50 }}>
+        {browserAnimatedX > 0 && <Panel style={{ paddingRight: 50 }}>
           <EnvironmentPanel
             onSelect={(browser) => this.setState({browserOffsetX: 0, browser})} />
-        </Pane>}
-        {browserAnimatedX < 0 && <Pane style={{ paddingLeft: 50 }}>
+        </Panel>}
+        {browserAnimatedX < 0 && <Panel style={{ paddingLeft: 50 }}>
           <DevelopmentPanel/>
-        </Pane>}
-        {<Pane x={browserOffsetX}
+        </Panel>}
+        {<Panel x={browserOffsetX}
           onAnimate={({value}) => this.setState({browserAnimatedX: value})}
           onShadePress={this.onShadePress}>
           <Browser type={this.state.browser} />
-        </Pane>}
+        </Panel>}
       </View>
     );
   }
