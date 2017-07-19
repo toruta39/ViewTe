@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
   TouchableOpacity,
-  Image
+  Image,
+  Keyboard
 } from 'react-native';
 
 const iconTable = {
@@ -18,15 +19,22 @@ const iconTable = {
 export default class VTButton extends Component {
   static propTypes = {
     type: PropTypes.oneOf(Object.keys(iconTable)).isRequired,
-    onPress: PropTypes.func.isRequired
+    onPress: PropTypes.func.isRequired,
+    disabled: PropTypes.bool
+  }
+
+  onPress = (...args) => {
+    Keyboard.dismiss();
+    return !this.props.disabled && this.props.onPress(...args);
   }
 
   render() {
-    const {type, style, onPress} = this.props;
+    const {type, style, onPress, disabled} = this.props;
 
     return (
-      <TouchableOpacity onPress={onPress}>
-        <Image source={iconTable[type]} style={[styles.icon, style]}/>
+      <TouchableOpacity onPress={this.onPress}>
+        <Image source={iconTable[type]}
+          style={[styles.icon, disabled && styles.disabled, style]}/>
       </TouchableOpacity>
     );
   }
@@ -36,5 +44,8 @@ const styles = StyleSheet.create({
   icon: {
     width: 32,
     height: 32
+  },
+  disabled: {
+    opacity: 0.2
   }
 });

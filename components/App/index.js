@@ -1,16 +1,40 @@
 import React, { Component } from 'react';
 import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
-  View
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform
 } from 'react-native';
-import PaneSlider from '../PaneSlider';
+import {
+  Provider
+} from 'react-redux';
+import PanelSlider from '../PanelSlider';
+import configureStore from '../../store/configureStore';
+
+const store = configureStore();
 
 export default class App extends Component {
   render() {
-    return (
+    const content = (
       <View style={styles.container}>
-        <PaneSlider />
+        <PanelSlider />
       </View>
+    );
+
+    return (
+      <Provider store={store}>
+        {Platform.select({
+          ios: (
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              {content}
+            </TouchableWithoutFeedback>
+          ),
+          // TouchableWithoutFeedback is avoided in android, which will
+          // block dragging
+          android: content
+        })}
+      </Provider>
     );
   }
 }

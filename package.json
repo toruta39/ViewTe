@@ -11,15 +11,15 @@
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.4",
     "react-native-safari-view": "^2.0.0",
-    "react-native-wkwebview-reborn": "^1.4.0"
+    "react-native-wkwebview-reborn": "^1.7.0"
   },
   "devDependencies": {
-    "babel-jest": "19.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "jest": "19.0.2",
+    "babel-jest": "^20.0.3",
+    "babel-preset-react-native": "^2.1.0",
+    "jest": "^20.0.4",
     "react-redux": "^5.0.5",
     "react-test-renderer": "16.0.0-alpha.6",
-    "redux": "^3.6.0",
+    "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0"
   },

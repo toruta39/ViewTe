@@ -6,19 +6,25 @@ import {
   WebView,
   TextInput,
   Text,
-  Platform,
-  Share
+  Platform
 } from 'react-native';
+import { connect } from 'react-redux';
 import WKWebView from 'react-native-wkwebview-reborn';
 import AddressBar from '../AddressBar';
 import ControlBar from '../ControlBar';
 import SafariViewCaller from '../SafariViewCaller';
 import BrowserHeader from '../BrowserHeader';
 import VTButton from '../VTButton';
+import {
+  updateNavState,
+  updateGotoUrl,
+  updateActivePanel
+} from '../../actions';
+import { ENVIRONMENTS } from '../../constants';
 
 const WEBVIEW_REF = 'webview';
 
-const types = Platform.select({
+const environments = Platform.select({
   ios: {
     'UIWebView': WebView,
     'WKWebView': WKWebView,
@@ -29,38 +35,18 @@ const types = Platform.select({
   }
 });
 
-export default class Browser extends Component {
-  static types = types
-
+class Browser extends Component {
   static propTypes = {
-    type: PropTypes.oneOf(Object.keys(types)).isRequired,
-    onMenuButtonPress: PropTypes.func.isRequired,
-    onDevButtonPress: PropTypes.func.isRequired
-  }
-
-  state = {
-    currentUrl: 'https://www.github.com/toruta39/ViewTe',
-    isBackButtonEnabled: false,
-    isForwardButtonEnabled: false,
-    isLoading: false,
-    // to trigger navigation in webview
-    gotoUrl: 'https://www.github.com/toruta39/ViewTe'
+    environment: PropTypes.oneOf(ENVIRONMENTS).isRequired
   }
 
   onNavigationStateChange = (navState) => {
-    this.setState({
-      isBackButtonEnabled: navState.canGoBack,
-      isForwardButtonEnabled: navState.canGoForward,
-      currentUrl: navState.url,
-      isLoading: navState.loading
-    });
+    this.props.updateNavState(navState);
   }
 
   onAddressBarSubmitEditing = ({url}) => {
-    if (url !== this.state.gotoUrl) {
-      this.setState({
-        gotoUrl: url
-      });
+    if (url !== this.props.gotoUrl) {
+      this.props.updateGotoUrl(url);
     } else {
       this.refs[WEBVIEW_REF].reload();
     }
@@ -72,14 +58,16 @@ export default class Browser extends Component {
 
   onBack = () => this.refs[WEBVIEW_REF].goBack()
 
-  onShare = () => Share.share({message: this.state.currentUrl})
-
   render() {
-    const {type, onMenuButtonPress, onDevButtonPress, style} = this.props;
-    const {currentUrl, gotoUrl, isLoading} = this.state;
+    const {
+      environment,
+      style,
+      gotoUrl,
+      updateActivePanel
+    } = this.props;
 
-    const WebView = Browser.types[type];
-    const additionalProps = type === 'WKWebView' ? {
+    const WebView = environments[environment];
+    const additionalProps = environment === 'WKWebView' ? {
       openNewWindowInWebView: true
     } : {};
 
@@ -87,27 +75,34 @@ export default class Browser extends Component {
       <View style={[styles.container, style]}>
         <BrowserHeader
           left={(
-            /* TODO: redux action */
-            <VTButton type="menu" onPress={onMenuButtonPress} />
+            <VTButton type="menu"
+              onPress={() => updateActivePanel('environment')} />
           )}
           right={(
-            /* TODO: redux action */
-            <VTButton type="code" onPress={onDevButtonPress} />
+            <VTButton type="code"
+              onPress={() => updateActivePanel('development')} />
           )}>
-          {type}
+          {environment}
         </BrowserHeader>
-        <AddressBar currentUrl={currentUrl} isLoading={isLoading}
-          onSubmitEditing={this.onAddressBarSubmitEditing}
+        <AddressBar onSubmitEditing={this.onAddressBarSubmitEditing}
           onReload={this.onReload}/>
         <WebView style={styles.webview} source={{uri: gotoUrl}}
           onNavigationStateChange={this.onNavigationStateChange}
           ref={WEBVIEW_REF} {...additionalProps} />
-        <ControlBar {...this.state} onForward={this.onForward}
-          onBack={this.onBack} onShare={this.onShare} />
+        <ControlBar onForward={this.onForward} onBack={this.onBack} />
       </View>
     );
   }
 }
+
+export default connect((state) => ({
+  gotoUrl: state.browser.gotoUrl,
+  environment: state.browser.environment
+}), {
+  updateNavState,
+  updateGotoUrl,
+  updateActivePanel
+})(Browser);
 
 const styles = StyleSheet.create({
   container: {
