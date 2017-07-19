@@ -1,7 +1,8 @@
 import * as ActionTypes from '../actions';
+import { ENVIRONMENTS } from '../constants';
 
 export default (state = {
-  environment: 'UIWebView',
+  environment: ENVIRONMENTS[0],
   isLoading: true,
   isBackButtonEnabled: false,
   isForwardButtonEnabled: false,
@@ -48,6 +49,11 @@ export default (state = {
       return {
         ...state,
         gotoUrl: action.gotoUrl
+      };
+    case ActionTypes.UPDATE_ENVIRONMENT:
+      return {
+        ...state,
+        environment: action.environment
       };
     default:
       return state;

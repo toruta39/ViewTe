@@ -39,3 +39,9 @@ export const updateActivePanel = (activePanel) => ({
   type: UPDATE_ACTIVE_PANEL,
   activePanel
 });
+
+export const UPDATE_ENVIRONMENT = 'UPDATE_ENVIRONMENT';
+export const updateEnvironment = (environment) => ({
+  type: UPDATE_ENVIRONMENT,
+  environment
+});

@@ -21,8 +21,7 @@ class PanelSlider extends Component {
   state = {
     browserOffsetX: 0,
     browserAnimatedX: 0,
-    screenWidth: Dimensions.get('window').width,
-    browser: Object.keys(Browser.types)[0]
+    screenWidth: Dimensions.get('window').width
   }
 
   onLayout = ({nativeEvent: {layout: {width}}}) => {
@@ -58,8 +57,7 @@ class PanelSlider extends Component {
     return (
       <View style={styles.container} onLayout={this.onLayout}>
         {browserAnimatedX > 0 && <Panel style={{ paddingRight: 50 }}>
-          <EnvironmentPanel
-            onSelect={(browser) => this.setState({browserOffsetX: 0, browser})} />
+          <EnvironmentPanel/>
         </Panel>}
         {browserAnimatedX < 0 && <Panel style={{ paddingLeft: 50 }}>
           <DevelopmentPanel/>
@@ -67,7 +65,7 @@ class PanelSlider extends Component {
         {<Panel x={browserOffsetX}
           onAnimate={({value}) => this.setState({browserAnimatedX: value})}
           onShadePress={this.onShadePress}>
-          <Browser type={this.state.browser} />
+          <Browser />
         </Panel>}
       </View>
     );

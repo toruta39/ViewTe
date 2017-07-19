@@ -3,7 +3,8 @@ import StyleSheet from '../../utils/CrossPlatformStyleSheet';
 import {
   View,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  Platform
 } from 'react-native';
 import {
   Provider
@@ -15,13 +16,24 @@ const store = configureStore();
 
 export default class App extends Component {
   render() {
+    const content = (
+      <View style={styles.container}>
+        <PanelSlider />
+      </View>
+    );
+
     return (
       <Provider store={store}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container}>
-            <PanelSlider />
-          </View>
-        </TouchableWithoutFeedback>
+        {Platform.select({
+          ios: (
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              {content}
+            </TouchableWithoutFeedback>
+          ),
+          // TouchableWithoutFeedback is avoided in android, which will
+          // block dragging
+          android: content
+        })}
       </Provider>
     );
   }

@@ -9,6 +9,11 @@ export default (state = {
         ...state,
         activePanel: action.activePanel
       };
+    case ActionTypes.UPDATE_ENVIRONMENT:
+      return {
+        ...state,
+        activePanel: 'browser'
+      };
     default:
       return state;
   }

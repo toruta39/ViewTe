@@ -20,10 +20,11 @@ import {
   updateGotoUrl,
   updateActivePanel
 } from '../../actions';
+import { ENVIRONMENTS } from '../../constants';
 
 const WEBVIEW_REF = 'webview';
 
-const types = Platform.select({
+const environments = Platform.select({
   ios: {
     'UIWebView': WebView,
     'WKWebView': WKWebView,
@@ -35,10 +36,8 @@ const types = Platform.select({
 });
 
 class Browser extends Component {
-  static types = types
-
   static propTypes = {
-    type: PropTypes.oneOf(Object.keys(types)).isRequired
+    environment: PropTypes.oneOf(ENVIRONMENTS).isRequired
   }
 
   onNavigationStateChange = (navState) => {
@@ -61,14 +60,14 @@ class Browser extends Component {
 
   render() {
     const {
-      type,
+      environment,
       style,
       gotoUrl,
       updateActivePanel
     } = this.props;
 
-    const WebView = Browser.types[type];
-    const additionalProps = type === 'WKWebView' ? {
+    const WebView = environments[environment];
+    const additionalProps = environment === 'WKWebView' ? {
       openNewWindowInWebView: true
     } : {};
 
@@ -83,22 +82,22 @@ class Browser extends Component {
             <VTButton type="code"
               onPress={() => updateActivePanel('development')} />
           )}>
-          {type}
+          {environment}
         </BrowserHeader>
         <AddressBar onSubmitEditing={this.onAddressBarSubmitEditing}
           onReload={this.onReload}/>
         <WebView style={styles.webview} source={{uri: gotoUrl}}
           onNavigationStateChange={this.onNavigationStateChange}
           ref={WEBVIEW_REF} {...additionalProps} />
-        <ControlBar {...this.state} onForward={this.onForward}
-          onBack={this.onBack} />
+        <ControlBar onForward={this.onForward} onBack={this.onBack} />
       </View>
     );
   }
 }
 
 export default connect((state) => ({
-  gotoUrl: state.browser.gotoUrl
+  gotoUrl: state.browser.gotoUrl,
+  environment: state.browser.environment
 }), {
   updateNavState,
   updateGotoUrl,
