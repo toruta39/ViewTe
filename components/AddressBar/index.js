@@ -67,7 +67,7 @@ class AddressBar extends Component {
               onSelectionChange={this.onSelectionChange}
               onFocus={this.onFocus}
               underlineColorAndroid="transparent"
-              returnKeyType="go"/>
+              returnKeyType="go" />
           </View>
           <View style={styles.buttonWrapper}>
             <ReloadButton onPress={onReload} isLoading={isLoading} />
