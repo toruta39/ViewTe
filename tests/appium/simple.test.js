@@ -1,5 +1,6 @@
 import wd from 'wd';
 import serverConfigs from './helpers/servers';
+import { android as cap } from './helpers/caps';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
 
@@ -11,12 +12,10 @@ beforeAll(() => {
     serverConfigs.sauce : serverConfigs.local;
 
   driver = wd.promiseChainRemote(serverConfig);
-  require("./helpers/logging").configure(driver);
 
-  var desired = Object.assign({}, require("./helpers/caps").ios92);
-  desired.app = require("./helpers/apps").iosTestApp;
+  var desired = Object.assign({}, cap);
   if (process.env.npm_package_config_sauce) {
-    desired.name = 'ios - simple';
+    desired.name = 'android - simple';
     desired.tags = ['sample'];
   }
   return driver.init(desired);
@@ -34,11 +33,16 @@ afterAll(() => {
 
 it("should compute the sum", function () {
   return driver
-    .resolve().then(function (sum) {
-      return driver.
-        elementByAccessibilityId('ComputeSumButton')
-          .click().sleep(1000)
-        .elementByAccessibilityId('Answer')
-          .text().should.become("" + sum);
+    .resolve()
+    .then(async function () {
+      let input = await driver.elementByXPath("//android.widget.EditText[@content-desc=\"address-input\"]");
+      await driver.sleep(1000);
+      await input.clear();
+      await driver.sleep(1000);
+      await input.sendKeys('www.google.com/ncr\n');
+      await driver.sleep(1000);
+
+      let text = await input.text();
+      expect(text.indexOf('https://www.google.com/')).toBe(0);
     });
 });

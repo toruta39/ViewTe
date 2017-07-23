@@ -67,10 +67,12 @@ class AddressBar extends Component {
               onSelectionChange={this.onSelectionChange}
               onFocus={this.onFocus}
               underlineColorAndroid="transparent"
-              returnKeyType="go" />
+              returnKeyType="go"
+              accessibilityLabel="address-input" />
           </View>
           <View style={styles.buttonWrapper}>
-            <ReloadButton onPress={onReload} isLoading={isLoading} />
+            <ReloadButton onPress={onReload} isLoading={isLoading}
+              accessibilityLabel="reload-button" />
           </View>
         </View>
       </View>
