@@ -19,7 +19,7 @@ Testability is powered by `appium` and `wd`.
 
 ### Instructions:
 
-You need to connect an Android Virtual Device via emulator cli or genymotion before test. Then run the command below:
+You need to connect an Android Virtual Device via `emulator` cli or `genymotion` before test. Then run the command below:
 
 ```
 $ npm run start:appium # start appium server, listening at 0.0.0.0:4723
