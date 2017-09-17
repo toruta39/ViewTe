@@ -43,10 +43,10 @@ export default class SafariViewCaller extends Component {
     return (
       <View style={[styles.container, style]}>
         <Text style={styles.url} ellipsizeMode="tail" numberOfLines={2}>
-          Desitination URL:{'\n'}
+          Target URL:{'\n'}
           {uri}
         </Text>
-        <Button title="Open SafariView" onPress={this.onPress}/>
+        <Button title="Open in SafariView" onPress={this.onPress}/>
       </View>
     );
   }

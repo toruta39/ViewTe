@@ -1,27 +1,36 @@
 {
   "name": "ViewTe",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "start:appium": "appium",
+    "test": "jest",
+    "test:appium": "jest tests/appium",
+    "clean:artifacts": "rm -rf tests/appium/artifacts/*",
+    "clean:android": "adb uninstall com.webviewtester",
+    "prebuild": "npm run clean:artifacts",
+    "build": "npm run build:android && npm run build:ios",
+    "build:android": "cd android && ./gradlew assembleRelease && cp app/build/outputs/apk/app-release.apk ../tests/appium/artifacts/",
+    "build:ios": "cd ios && xcodebuild -project WebviewTester.xcodeproj -configuration Release -scheme WebviewTester -destination 'platform=iOS Simulator,OS=latest,name=iPhone 6' -derivedDataPath build && cp -r build/Build/Products/Release-iphonesimulator/WebviewTester.app ../tests/appium/artifacts/"
   },
   "dependencies": {
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.4",
     "react-native-safari-view": "^2.0.0",
-    "react-native-wkwebview-reborn": "^1.4.0"
+    "react-native-wkwebview-reborn": "^1.7.0"
   },
   "devDependencies": {
-    "babel-jest": "19.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "jest": "19.0.2",
+    "babel-jest": "^20.0.3",
+    "babel-preset-react-native": "^2.1.0",
+    "jest": "^20.0.4",
     "react-redux": "^5.0.5",
     "react-test-renderer": "16.0.0-alpha.6",
-    "redux": "^3.6.0",
+    "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "wd": "^1.4.0"
   },
   "jest": {
     "preset": "react-native"

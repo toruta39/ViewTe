@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../utils/CrossPlatformStyleSheet';
+import { getProps } from '../../utils/e2e';
 import {
   View,
   Text
@@ -15,11 +16,14 @@ export default class BrowserHeader extends Component {
 
   render() {
     const {left, right, children} = this.props;
+    const environmentNameTestProps = getProps('environment-name');
 
     return (
       <View style={styles.container}>
         <View style={styles.left}>{left}</View>
-        <Text style={styles.text}>{children}</Text>
+        <Text style={styles.text} {...environmentNameTestProps}>
+          {children}
+        </Text>
         <View style={styles.right}>{right}</View>
       </View>
     );

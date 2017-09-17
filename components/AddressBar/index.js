@@ -7,41 +7,23 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import ReloadButton from '../ReloadButton';
+import {
+  updateInputUrl,
+  updateSelection,
+  selectAll
+} from '../../actions';
+import { connect } from 'react-redux';
+import { getProps } from '../../utils/e2e';
 
-export default class AddressBar extends Component {
+class AddressBar extends Component {
   static propTypes = {
-    currentUrl: PropTypes.string,
     onSubmitEditing: PropTypes.func.isRequired,
     onReload: PropTypes.func.isRequired,
     isLoading: PropTypes.bool
   }
 
-  state = {
-    inputUrl: '',
-    selection: {
-      start: 0,
-      end: 0
-    }
-  }
-
-  componentDidMount() {
-    this.setState({
-      inputUrl: this.props.currentUrl
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUrl !== this.props.currentUrl) {
-      this.setState({
-        inputUrl: nextProps.currentUrl
-      });
-    }
-  }
-
   onFieldChange = ({nativeEvent:{text}}) => {
-    this.setState({
-      inputUrl: text
-    });
+    this.props.updateInputUrl(text);
   }
 
   onSubmitEditing = ({nativeEvent: {text}}) => {
@@ -55,28 +37,23 @@ export default class AddressBar extends Component {
   }
 
   onSelectionChange = ({nativeEvent: {selection}}) => {
-    this.setState({
-      selection: selection
-    });
+    this.props.updateSelection(selection);
   }
 
   onFocus = () => {
     // by default, cursor will be placed at the end of text after being
     // focused, so i delay selecting all text after the default behavior
-    setTimeout(() => this.setState({
-      selection: {
-        start: 0,
-        end: this.state.inputUrl.length
-      }
-    }), 300);
+    setTimeout(() => this.props.selectAll(), 100);
   }
 
   render() {
     const {
       onReload,
-      isLoading
+      isLoading,
+      inputUrl,
+      selection
     } = this.props;
-    const {inputUrl, selection} = this.state;
+    const inputTestProps = getProps('address-input');
 
     return (
       <View style={styles.container}>
@@ -92,16 +69,27 @@ export default class AddressBar extends Component {
               onSelectionChange={this.onSelectionChange}
               onFocus={this.onFocus}
               underlineColorAndroid="transparent"
-              returnKeyType="go"/>
+              returnKeyType="go"
+              {...inputTestProps} />
           </View>
           <View style={styles.buttonWrapper}>
-            <ReloadButton onPress={onReload} isLoading={isLoading} />
+            <ReloadButton onPress={onReload} isLoading={isLoading}/>
           </View>
         </View>
       </View>
     );
   }
 }
+
+export default connect((state) => ({
+  inputUrl: state.browser.inputUrl,
+  selection: state.browser.selection,
+  isLoading: state.browser.isLoading
+}), {
+  updateInputUrl,
+  updateSelection,
+  selectAll
+})(AddressBar);
 
 const styles = StyleSheet.create({
   container: {
