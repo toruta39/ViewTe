@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../utils/CrossPlatformStyleSheet';
+import { getProps } from '../../utils/e2e';
 import {
   View,
   TouchableHighlight,
@@ -15,10 +16,16 @@ export default class Cell extends Component {
   }
 
   render() {
-    const {children, onPress} = this.props;
+    const {children, onPress, testID} = this.props;
+
+    const testProps = getProps(testID);
 
     return (
-      <TouchableHighlight onPress={onPress} underlayColor="#e4e0cf">
+      <TouchableHighlight
+        onPress={onPress}
+        underlayColor="#e4e0cf"
+        {...testProps}
+      >
         <View style={styles.container}>
           <Text style={styles.text}>{children}</Text>
           <Image style={styles.accessory} source={require('./accessory.png')} />

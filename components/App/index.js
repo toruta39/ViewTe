@@ -14,30 +14,13 @@ import configureStore from '../../store/configureStore';
 
 const store = configureStore();
 
-export default class App extends Component {
-  render() {
-    const content = (
-      <View style={styles.container}>
-        <PanelSlider />
-      </View>
-    );
-
-    return (
-      <Provider store={store}>
-        {Platform.select({
-          ios: (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              {content}
-            </TouchableWithoutFeedback>
-          ),
-          // TouchableWithoutFeedback is avoided in android, which will
-          // block dragging
-          android: content
-        })}
-      </Provider>
-    );
-  }
-}
+const App = () => (
+  <Provider store={store}>
+    <View style={styles.container}>
+      <PanelSlider />
+    </View>
+  </Provider>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -46,3 +29,5 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   }
 });
+
+export default App;

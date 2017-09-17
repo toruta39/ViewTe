@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getProps } from '../../utils/e2e';
 import Browser from '../Browser';
 import Cell from '../Cell';
 import CellTitle from '../CellTitle';
@@ -18,13 +19,20 @@ class EnvironmentPanel extends Component {
 
   render() {
     const {style, updateEnvironment} = this.props;
+    const testProps = getProps('environment-list');
 
     return (
-      <View style={[styles.container, style]}>
+      <View style={[styles.container, style]} {...testProps}>
         {/* TODO: Use <FlatList /> or <SectionList /> instead */}
         <CellTitle>Browsing Environment</CellTitle>
         {ENVIRONMENTS.map((key, i) => (
-          <Cell key={key} onPress={() => updateEnvironment(key)}>{key}</Cell>
+          <Cell
+            onPress={() => updateEnvironment(key)}
+            key={key}
+            testID={key}
+          >
+            {key}
+          </Cell>
         ))}
       </View>
     );

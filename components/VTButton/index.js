@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../utils/CrossPlatformStyleSheet';
+import { getProps } from '../../utils/e2e';
 import {
   TouchableOpacity,
   Image,
@@ -12,7 +13,6 @@ const iconTable = {
   'forward': require('./forward.png'),
   'code': require('./code.png'),
   'menu': require('./menu.png'),
-  'reload': require('./reload.png'),
   'share': require('./share.png')
 };
 
@@ -20,7 +20,8 @@ export default class VTButton extends Component {
   static propTypes = {
     type: PropTypes.oneOf(Object.keys(iconTable)).isRequired,
     onPress: PropTypes.func.isRequired,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    testID: PropTypes.string,
   }
 
   onPress = (...args) => {
@@ -29,12 +30,18 @@ export default class VTButton extends Component {
   }
 
   render() {
-    const {type, style, onPress, disabled} = this.props;
+    const { type, style, onPress, disabled, testID } = this.props;
+    const testProps = testID ? getProps(testID) : {};
 
     return (
-      <TouchableOpacity onPress={this.onPress}>
-        <Image source={iconTable[type]}
-          style={[styles.icon, disabled && styles.disabled, style]}/>
+      <TouchableOpacity
+        onPress={this.onPress}
+        {...testProps}
+      >
+        <Image
+          source={iconTable[type]}
+          style={[styles.icon, disabled && styles.disabled, style]}
+        />
       </TouchableOpacity>
     );
   }
