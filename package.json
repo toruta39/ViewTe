@@ -6,7 +6,13 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:appium": "appium",
     "test": "jest",
-    "test:appium": "jest tests/appium"
+    "test:appium": "jest tests/appium",
+    "clean:artifacts": "rm -rf tests/appium/artifacts/*",
+    "clean:android": "adb uninstall com.webviewtester",
+    "prebuild": "npm run clean:artifacts",
+    "build": "npm run build:android && npm run build:ios",
+    "build:android": "cd android && ./gradlew assembleRelease && cp app/build/outputs/apk/app-release.apk ../tests/appium/artifacts/",
+    "build:ios": "cd ios && xcodebuild -project WebviewTester.xcodeproj -configuration Release -scheme WebviewTester -destination 'platform=iOS Simulator,OS=latest,name=iPhone 6' -derivedDataPath build && cp -r build/Build/Products/Release-iphonesimulator/WebviewTester.app ../tests/appium/artifacts/"
   },
   "dependencies": {
     "prop-types": "^15.5.10",

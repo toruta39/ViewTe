@@ -13,6 +13,7 @@ import {
   selectAll
 } from '../../actions';
 import { connect } from 'react-redux';
+import { getProps } from '../../utils/e2e';
 
 class AddressBar extends Component {
   static propTypes = {
@@ -52,6 +53,7 @@ class AddressBar extends Component {
       inputUrl,
       selection
     } = this.props;
+    const inputTestProps = getProps('address-input');
 
     return (
       <View style={styles.container}>
@@ -68,11 +70,10 @@ class AddressBar extends Component {
               onFocus={this.onFocus}
               underlineColorAndroid="transparent"
               returnKeyType="go"
-              accessibilityLabel="address-input" />
+              {...inputTestProps} />
           </View>
           <View style={styles.buttonWrapper}>
-            <ReloadButton onPress={onReload} isLoading={isLoading}
-              accessibilityLabel="reload-button" />
+            <ReloadButton onPress={onReload} isLoading={isLoading}/>
           </View>
         </View>
       </View>

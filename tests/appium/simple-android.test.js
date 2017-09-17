@@ -31,11 +31,12 @@ afterAll(() => {
     });
 });
 
-it("should compute the sum", function () {
+it("android should navigate", function () {
   return driver
     .resolve()
     .then(async function () {
-      let input = await driver.elementByXPath("//android.widget.EditText[@content-desc=\"address-input\"]");
+      await driver.sleep(1000);
+      let input = await driver.elementByXPath('//android.widget.EditText[@content-desc="address-input"]');
       await driver.sleep(1000);
       await input.clear();
       await driver.sleep(1000);

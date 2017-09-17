@@ -75,8 +75,11 @@ class Browser extends Component {
       <View style={[styles.container, style]}>
         <BrowserHeader
           left={(
-            <VTButton type="menu"
-              onPress={() => updateActivePanel('environment')} />
+            <VTButton
+              type="menu"
+              onPress={() => updateActivePanel('environment')}
+              testID="menu-button"
+            />
           )}
           right={(
             <VTButton type="code"
