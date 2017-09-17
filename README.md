@@ -8,7 +8,7 @@ A minimalistic webview tester designed for web developers
 
 ## App Download
 
-iOS: https://itunes.apple.com/us/app/viewte-the-webview-tester/id1237657148 
+iOS: https://itunes.apple.com/us/app/viewte-the-webview-tester/id1237657148  
 Android: https://play.google.com/store/apps/details?id=com.webviewtester
 
 ## E2E Test in Emulator
