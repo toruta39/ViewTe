@@ -1,17 +1,17 @@
 export const android = JSON.parse(`{
   "browserName": "",
-  "appium-version": "1.6",
+  "appium-version": "1.7",
   "platformName": "Android",
-  "platformVersion": "5.1",
+  "platformVersion": "1.7.1",
   "deviceName": "Android Emulator",
   "app": "tests/appium/artifacts/app-release.apk"
 }`);
 
 export const ios = JSON.parse(`{
   "browserName": "",
-  "appium-version": "1.6",
+  "appium-version": "1.7",
   "platformName": "iOS",
-  "platformVersion": "10.3",
+  "platformVersion": "11.1",
   "deviceName": "iPhone Simulator",
   "app": "tests/appium/artifacts/WebviewTester.app",
   "automationName": "XCUITest"
