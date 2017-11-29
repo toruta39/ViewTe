@@ -1,43 +1,28 @@
 import testUtils from './test-utils';
 
 let driver;
-var allPassed = true;
 
-beforeAll((done) => {
-  console.log(-1);
-  return Promise
-    .resolve()
-    .then(async () => {
-      driver = await testUtils.initDriver('ios', 'WKWebView');
-      done();
-    });
+beforeAll(async (done) => {
+  driver = await testUtils.initDriver('ios', 'WKWebView');
+  done();
 });
 
-afterAll(() => {
-  return driver
-    .quit()
-    .finally(function () {
-      if (process.env.npm_package_config_sauce) {
-        return driver.sauceJobStatus(allPassed);
-      }
-    });
+afterAll(async () => {
+  try {
+    await driver.quit()
+  } catch(e) {
+    console.error(e);
+  }
 });
 
-it("should navigate", function () {
-  return Promise
-    .resolve()
-    .then(async function () {
-      await testUtils.navigate('www.google.com/ncr');
-      let text = await testUtils.getUrl();
+it("should navigate", async () => {
+  await testUtils.navigate('www.google.com/ncr');
+  const text = await testUtils.getUrl();
 
-      expect(text.indexOf('https://www.google.com/')).toBe(0);
-    });
+  expect(text.indexOf('https://www.google.com/')).toBe(0);
 });
 
-it("should search", function () {
-  return Promise
-    .resolve()
-    .then(async function () {
-      // TODO: search a keyword and test the page content
-    });
+it("should search", async () => {
+  // TODO: search a keyword and test the page content
+  expect(null).toBe(true);
 });
