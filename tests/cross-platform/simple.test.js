@@ -23,6 +23,11 @@ it("should navigate", async () => {
 });
 
 it("should search", async () => {
-  // TODO: search a keyword and test the page content
-  expect(null).toBe(true);
+  const input = await driver.elementByXPath('//input[@id="lst-ib"]');
+  await input.sendKeys('ViewTe');
+  const button = await driver.elementByXPath('//button[@id="tsbb"]');
+  await button.tap();
+  await driver.sleep(2000);
+  const title = await driver.title();
+  expect(title).toBe('ViewTe - Google Search');
 });

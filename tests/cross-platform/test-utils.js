@@ -4,6 +4,8 @@ import * as caps from '../appium/helpers/caps';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
 
+const CMD_WAIT_TIME = 500;
+
 const testUtils = {
   driver: null,
   platform: null,
@@ -28,37 +30,49 @@ const testUtils = {
 
   async switchEnv(env) {
     // TODO: handle android case
-    await this.driver.sleep(1000);
+    await this.setNativeContext();
     const menuButton = await this.driver.elementByXPath('//XCUIElementTypeOther[@name="menu-button"]');
     await menuButton.tap();
-    await this.driver.sleep(1000);
     const envButton = await this.driver.elementByXPath(`//XCUIElementTypeOther[@name="environment-list"]//XCUIElementTypeOther[@name="${env}"]`);
     await envButton.tap();
-    await this.driver.sleep(1000);
   
     const browserEnvironment = await this.driver.elementByXPath('//XCUIElementTypeStaticText[@name="environment-name"]');
     const text = await browserEnvironment.text();
   
     if (text !== env) throw new Error('env doesn\'t match');
+
+    await this.setWebviewContext();
   },
 
   async navigate(url) {
     // TODO: handle android case
-    await this.driver.sleep(1000);
+    await this.setNativeContext();
     const input = await this.driver.elementByXPath('//XCUIElementTypeTextField[@name="address-input"]');
-    await this.driver.sleep(1000);
     await input.clear();
-    await this.driver.sleep(1000);
     await input.sendKeys(`${url}\n`);
+    await this.setWebviewContext();
   },
 
   async getUrl() {
     // TODO: handle android case
-    await this.driver.sleep(1000);
+    await this.setNativeContext();
     const input = await this.driver.elementByXPath('//XCUIElementTypeTextField[@name="address-input"]');
     const text = await input.text();
+    await this.setWebviewContext();
 
     return text;
+  },
+
+  async setWebviewContext() {
+    const contexts = await this.driver.contexts();
+    this.driver.context(contexts[contexts.length - 1]);
+    await this.driver.sleep(CMD_WAIT_TIME);
+  },
+
+  async setNativeContext() {
+    const contexts = await this.driver.contexts();
+    this.driver.context(contexts[0]);
+    await this.driver.sleep(CMD_WAIT_TIME);
   }
 };
 
