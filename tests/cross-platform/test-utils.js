@@ -53,16 +53,6 @@ const testUtils = {
     await this.setWebviewContext();
   },
 
-  async getUrl() {
-    // TODO: handle android case
-    await this.setNativeContext();
-    const input = await this.driver.elementByXPath('//XCUIElementTypeTextField[@name="address-input"]');
-    const text = await input.text();
-    await this.setWebviewContext();
-
-    return text;
-  },
-
   async setWebviewContext() {
     const contexts = await this.driver.contexts();
     this.driver.context(contexts[contexts.length - 1]);

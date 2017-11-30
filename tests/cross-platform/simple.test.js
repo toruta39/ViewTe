@@ -15,11 +15,12 @@ afterAll(async () => {
   }
 });
 
-it("should navigate", async () => {
+it("should get url", async () => {
   await testUtils.navigate('www.google.com/ncr');
-  const text = await testUtils.getUrl();
+  await driver.sleep(2000);
+  const url = await driver.url();
 
-  expect(text.indexOf('https://www.google.com/')).toBe(0);
+  expect(url.indexOf('https://www.google.com/')).toBe(0);
 });
 
 it("should search", async () => {
