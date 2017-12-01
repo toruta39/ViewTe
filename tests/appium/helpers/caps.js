@@ -2,7 +2,7 @@ export const android = JSON.parse(`{
   "browserName": "",
   "appium-version": "1.7",
   "platformName": "Android",
-  "platformVersion": "1.7.1",
+  "platformVersion": "7.1.1",
   "deviceName": "Android Emulator",
   "app": "tests/appium/artifacts/app-release.apk"
 }`);
