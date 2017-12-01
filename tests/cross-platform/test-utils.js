@@ -44,15 +44,6 @@ const testUtils = {
     await this.setWebviewContext();
   },
 
-  async navigate(url) {
-    // TODO: handle android case
-    await this.setNativeContext();
-    const input = await this.driver.elementByXPath('//XCUIElementTypeTextField[@name="address-input"]');
-    await input.clear();
-    await input.sendKeys(`${url}\n`);
-    await this.setWebviewContext();
-  },
-
   async setWebviewContext() {
     const contexts = await this.driver.contexts();
     this.driver.context(contexts[contexts.length - 1]);
