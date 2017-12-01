@@ -17,8 +17,8 @@ const run = (...args) => {
   });
   
   it("should get url", async () => {
-    await driver.url('https://www.google.com/ncr');
-    await driver.sleep(2000);
+    await driver.get('https://www.google.com/ncr');
+    await driver.sleep(5000);
     const url = await driver.url();
   
     expect(url.indexOf('https://www.google.com/')).toBe(0);
@@ -29,7 +29,7 @@ const run = (...args) => {
     await input.sendKeys('ViewTe');
     const button = await driver.elementByXPath('//button[@id="tsbb"]');
     await button.tap();
-    await driver.sleep(2000);
+    await driver.sleep(5000);
     const title = await driver.title();
     expect(title).toBe('ViewTe - Google Search');
   });  
