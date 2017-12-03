@@ -1,0 +1,15 @@
+{
+  "name": "view-te-cross",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "babel-jest": "^20.0.3",
+    "jest": "^20.0.4",
+    "wd": "^1.4.0"
+  }
+}

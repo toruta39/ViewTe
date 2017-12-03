@@ -35,5 +35,8 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
