@@ -1,36 +1,44 @@
 import testUtils from './test-utils';
 
 const run = (...args) => {
-  let driver;
   
   beforeAll(async (done) => {
-    driver = await testUtils.initDriver(...args);
+    this.driver = await testUtils.initDriver(...args);
+
+    this.platform = testUtils.platform;
+    this.browser = testUtils.browser;
+    this.appOptions = testUtils.appOptions;
+
     done();
   });
   
   afterAll(async () => {
     try {
-      await driver.quit()
+      await this.driver.quit()
     } catch(e) {
       console.error(e);
     }
   });
   
   it("should get url", async () => {
-    await driver.get('https://duckduckgo.com/');
-    await driver.sleep(10000);
-    const url = await driver.url();
+    await this.driver.get('https://duckduckgo.com/');
+    await this.driver.sleep(10000);
+    const url = await this.driver.url();
   
     expect(url.indexOf('https://duckduckgo.com/')).toBe(0);
   });
   
   it("should search", async () => {
-    const input = await driver.elementByXPath('//input[@id="search_form_input_homepage"]');
+    const input = await this.driver.elementByXPath('//input[@id="search_form_input_homepage"]');
     await input.sendKeys('ViewTe');
-    const button = await driver.elementByXPath('//input[@id="search_button_homepage"]');
-    await button.tap();
-    await driver.sleep(10000);
-    const title = await driver.title();
+    const button = await this.driver.elementByXPath('//input[@id="search_button_homepage"]');
+    if (this.platform === 'mac' || this.platform === 'win10') {
+      await button.click();
+    } else {
+      await button.tap();
+    }
+    await this.driver.sleep(10000);
+    const title = await this.driver.title();
     expect(title.indexOf('ViewTe')).toBe(0);
   });  
 }

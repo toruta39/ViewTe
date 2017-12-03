@@ -12,13 +12,18 @@ const testUtils = {
   browser: null,
   appOptions: null,
 
-  // platform: ios|android case-insensitive
-  // browser: chrome|safari|app case-insensitive
+  // platform: ios|android|mac case-insensitive
+  // browser: chrome|safari|firefox|app case-insensitive
   // appOptions?: {
   //   app: ViewTe case-sensitive
   //   env: WebView|UIWebView|WKWebView|SFSafariViewController case-sensitive
   // }
   async initDriver(platform, browser, appOptions = {}) {
+    if (this.driver !== null) {
+      console.error('driver can be inited only once per test');
+      return this.driver;
+    }
+
     this.platform = platform.toLowerCase();
     this.browser = browser.toLowerCase();
     this.appOptions = appOptions;
@@ -40,13 +45,25 @@ const testUtils = {
       }
     } catch(e) {
       console.error(e);
-    }    
+    }
 
     return this.driver;
   },
 
   getCap(platform, browser, appOptions) {
-    if (platform === 'ios') {
+    if (platform === 'mac') {
+      return {
+        browserName: browser,
+        version: '',
+        platform: 'MAC'
+      };
+    } else if (platform === 'win10') {
+      return {
+        browserName: browser,
+        version: '',
+        platform: 'WIN10'
+      };
+    } else if (platform === 'ios') {
       if (browser === 'app') {
         if (appOptions.app === 'ViewTe') {
           return {
