@@ -4,7 +4,7 @@ import serverConfigs from './servers';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
 
-const CMD_WAIT_TIME = 3000;
+const CMD_WAIT_TIME = 5000;
 
 const testUtils = {
   driver: null,
