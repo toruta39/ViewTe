@@ -55,7 +55,7 @@ module.exports = (fn, config) => {
         }
       });
 
-      fn(driver);
+      fn(driver, capability);
 
       global.beforeAll = originalBeforeAll;
       global.afterAll = originalAfterAll;
