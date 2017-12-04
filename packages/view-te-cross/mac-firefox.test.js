@@ -1,3 +1,3 @@
 import run from './test-case';
 
-run('mac', 'firefox');
+run('MAC', 'firefox');

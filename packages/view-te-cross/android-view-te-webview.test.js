@@ -1,6 +1,7 @@
 import run from './test-case';
 
-run('android', 'app', {
-  app: 'ViewTe',
-  env: 'WebView'
+run('ANDROID', 'app', {
+  viewTe: {
+    env: 'WebView'
+  }
 });

@@ -32,7 +32,7 @@ const run = (...args) => {
     const input = await this.driver.elementByXPath('//input[@id="search_form_input_homepage"]');
     await input.sendKeys('ViewTe');
     const button = await this.driver.elementByXPath('//input[@id="search_button_homepage"]');
-    if (this.platform === 'mac' || this.platform === 'win10') {
+    if (this.platform === 'MAC' || this.platform === 'WIN10') {
       await button.click();
     } else {
       await button.tap();

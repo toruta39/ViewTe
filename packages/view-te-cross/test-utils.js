@@ -12,11 +12,14 @@ const testUtils = {
   browser: null,
   appOptions: null,
 
-  // platform: ios|android|mac case-insensitive
-  // browser: chrome|safari|firefox|app case-insensitive
+  // all params are case-sensitive
+  //
+  // platform: IOS|ANDROID|MAC|WIN10
+  // browser: chrome|safari|firefox|internet explorer|MicrosoftEdge|app
   // appOptions?: {
-  //   app: ViewTe case-sensitive
-  //   env: WebView|UIWebView|WKWebView|SFSafariViewController case-sensitive
+  //   viewTe?: {
+  //     env: WebView|UIWebView|WKWebView|SFSafariViewController
+  //   }   
   // }
   async initDriver(platform, browser, appOptions = {}) {
     if (this.driver !== null) {
@@ -24,8 +27,8 @@ const testUtils = {
       return this.driver;
     }
 
-    this.platform = platform.toLowerCase();
-    this.browser = browser.toLowerCase();
+    this.platform = platform;
+    this.browser = browser;
     this.appOptions = appOptions;
 
     const serverConfig = serverConfigs.local;
@@ -51,21 +54,21 @@ const testUtils = {
   },
 
   getCap(platform, browser, appOptions) {
-    if (platform === 'mac') {
+    if (platform === 'MAC') {
       return {
         browserName: browser,
         version: '',
         platform: 'MAC'
       };
-    } else if (platform === 'win10') {
+    } else if (platform === 'WIN10') {
       return {
         browserName: browser,
         version: '',
         platform: 'WIN10'
       };
-    } else if (platform === 'ios') {
+    } else if (platform === 'IOS') {
       if (browser === 'app') {
-        if (appOptions.app === 'ViewTe') {
+        if (typeof appOptions.viewTe === 'object') {
           return {
             browserName: 'app',
             'appium-version': '1.7',
@@ -88,9 +91,9 @@ const testUtils = {
           wdaLocalPort: 8102
         };
       } 
-    } else if (platform === 'android') {
+    } else if (platform === 'ANDROID') {
       if (browser === 'app') {
-        if (appOptions.app === 'ViewTe') {
+        if (typeof appOptions.viewTe === 'object') {
           return {
             browserName: 'app',
             'appium-version': '1.7',
@@ -118,10 +121,10 @@ const testUtils = {
   },
 
   async bootstrapApp() {
-    if (this.appOptions.app === 'ViewTe') {
+    if (typeof this.appOptions.viewTe === 'object') {
       await this.setNativeContext();
 
-      const env = this.appOptions.env;
+      const env = this.appOptions.viewTe.env;
 
       if (this.platform === 'ios') {
         const browserEnvironment = await this.driver.elementByXPath('//XCUIElementTypeStaticText[@name="environment-name"]');

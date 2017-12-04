@@ -1,3 +1,3 @@
 import run from './test-case';
 
-run('android', 'chrome');
+run('ANDROID', 'chrome');

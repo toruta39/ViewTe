@@ -1,3 +1,3 @@
 import run from './test-case';
 
-run('win10', 'chrome');
+run('WIN10', 'chrome');

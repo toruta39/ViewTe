@@ -21,7 +21,7 @@
       "seleniumProtocol": "WebDriver"
     },
     {
-      "browserName": "microsoftedge",
+      "browserName": "MicrosoftEdge",
       "platform": "WIN10",
       "maxInstances": 5,
       "seleniumProtocol": "WebDriver"
