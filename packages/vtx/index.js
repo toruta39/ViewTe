@@ -2,7 +2,7 @@ const wd = require('wd');
 const path = require('path');
 const testUtils = require('./test-utils');
 
-module.exports = (fn, config) => {
+module.exports = (testFn, config) => {
   const serverConfig = {
     host: config.host || 'localhost',
     port: config.port || 4444
@@ -12,8 +12,6 @@ module.exports = (fn, config) => {
 
   capabilities.forEach(capability =>
     describe('userAgent: TODO', () => {
-      let driver;
-
       let beforeAllFn;
       let afterAllFn;
 
@@ -38,24 +36,28 @@ module.exports = (fn, config) => {
       global.describe = describeWithOriginalGlobals;
 
       originalBeforeAll(async (done) => {
-        driver = await testUtils.getDriver(serverConfig, capability);
+        global.capability = capability;
+        global.driver = await testUtils.getDriver(serverConfig, capability);
 
         if (typeof beforeAllFn === 'function') {
-          await beforeAllFn(done);
-        } else {
-          done();
+          await beforeAllFn();
         }
+
+        done();
       });
 
       originalAfterAll(async (done) => {
         if (typeof afterAllFn === 'function') {
-          await afterAllFn(done);
-        } else {
-          done();
+          await afterAllFn();
         }
+
+        global.capability = null;
+        global.driver = null;
+
+        done();
       });
 
-      fn(driver);
+      testFn();
 
       global.beforeAll = originalBeforeAll;
       global.afterAll = originalAfterAll;

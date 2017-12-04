@@ -1,24 +1,22 @@
 const vtx = require('vtx');
 const config = require('../../vtx.conf');
 
-vtx((driver) => {
+vtx(() => {
   beforeAll(() => {
-    this.platform = driver.capability.platformName;
-    this.browser = driver.capability.browserName;
+    this.platform = capability.platformName;
+    this.browser = capability.browserName;
 
     if (this.browser === 'vt') {
-      this.vtEnv = driver.capability.vtxOpts.vtEnv;
+      this.vtEnv = capability.vtEnv;
     }
   });
   
-  afterAll(async (done) => {
+  afterAll(async () => {
     try {
       await driver.quit();
     } catch(e) {
       console.error(e);
     }
-
-    done();
   });
   
   it("should get url", async () => {

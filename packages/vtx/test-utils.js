@@ -29,6 +29,8 @@ const getDriver = async (serverConfig, capability) => {
       desired.browserName = 'app';
       delete desired.vtEnv;
     }
+
+    console.log(JSON.stringify(desired));
     
     await driver.init(desired);
     await driver.sleep(CMD_WAIT_TIME);
