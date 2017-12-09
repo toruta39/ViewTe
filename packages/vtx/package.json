@@ -1,10 +1,22 @@
 {
   "name": "vtx",
-  "version": "1.0.0",
+  "description": "Make cross platform E2E testing easier for web developers, including WebViews",
+  "keywords": [
+    "webdriver", "selenium", "appium", "saucelabs", "sauce", "labs", "jest", "testingbot"
+  ],
+  "author": {
+    "name": "Joshua Zhang"
+  },
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
-  "private": true,
-  "bin": "cli.js",
+  "bin": {
+    "vtx": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toruta39/ViewTe.git"
+  },
   "engines": {
     "node": ">=8.0.0"
   },
@@ -15,9 +27,5 @@
     "rimraf": "^2.6.2",
     "wd": "^1.4.0",
     "yargs": "^10.0.3"
-  },
-  "devDependencies": {
-    "babel-jest": "^20.0.3",
-    "jest": "^20.0.4"
   }
 }

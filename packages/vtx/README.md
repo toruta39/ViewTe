@@ -43,7 +43,7 @@ Safari will require 2 additional step to enable automation for testing.
 
 Configure your selenium node using the `selenium-mac-node.conf.json` or `selenium-win10-node.conf.json` and replace `hub` with `http://<selenium_grid_hub_ip>:4444`.
 
-Sample file can be found at: TK
+Sample file can be found at: <https://github.com/toruta39/ViewTe/blob/master/packages/vtx/examples/conf/server>
 
 ### Step 4 Start your node for desktop browser testing 
 
@@ -97,7 +97,7 @@ $ vtx install-artifacts
 Configure your appium node using the `appium-app-node.conf.json` and
 `appium-browser-node.conf.json`.
 
-Sample file can be found at: TK
+Sample file can be found at: <https://github.com/toruta39/ViewTe/blob/master/packages/vtx/examples/conf/server>
 
 1. Modify the `version` fields under capabilities to the OS version you'd like to
    test against
@@ -171,7 +171,7 @@ Create a `vtx.conf.js` in the root directory.
 1. Replace host with `<selenium_grid_hub_ip>`
 2. Add capabilities for your tests to run against
 
-Here's an example configuration: <https://github.com/toruta39/ViewTe/blob/develop/packages/vtx-code-example/vtx.conf.js>
+Here's an example configuration: <https://github.com/toruta39/ViewTe/blob/master/packages/vtx/examples/conf/client/vtx.conf.js>
 
 #### Notes on configuring capabilities:
 
@@ -190,7 +190,7 @@ vtx works with Jest. To author a test:
 4. Wrap your Jest test in a function
 5. Invoke your test function with `vtx(testFn, config);`
 
-Here's an example: <https://github.com/toruta39/ViewTe/blob/develop/packages/vtx-code-example/tests/specs/search.spec.js>
+Here's an example: <https://github.com/toruta39/ViewTe/blob/master/packages/vtx-code-example/tests/specs/search.spec.js>
 
 #### Special global test utils for vtx tests
 
