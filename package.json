@@ -7,6 +7,7 @@
     "start:appium": "appium",
     "test": "jest",
     "test:appium": "jest tests/appium",
+    "test:cross-platform": "jest tests/cross-platform",
     "clean:artifacts": "rm -rf tests/appium/artifacts/*",
     "clean:android": "adb uninstall com.webviewtester",
     "prebuild": "npm run clean:artifacts",
@@ -34,5 +35,8 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
