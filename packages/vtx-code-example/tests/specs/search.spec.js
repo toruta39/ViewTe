@@ -3,7 +3,7 @@ const config = require('../../vtx.conf');
 
 vtx(() => {
   beforeAll(() => {
-    this.platform = capability.platformName;
+    this.platform = capability.platformName || capability.platform;
     this.browser = capability.browserName;
 
     if (this.browser === 'vt') {
@@ -38,6 +38,6 @@ vtx(() => {
     }
     await driver.sleep(10000);
     const title = await driver.title();
-    expect(title.indexOf('ViewTe')).toBe(0);
+    expect(title).toBe('ViewTe at DuckDuckGo');
   });
 }, config);

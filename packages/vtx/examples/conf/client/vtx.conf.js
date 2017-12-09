@@ -15,7 +15,7 @@ module.exports = {
       automationName: 'XCUITest',
       wdaLocalPort: 8101,
       vtxTestName: 'iOS UIWebView',
-      vtEnv: 'UIWebView'
+      vtEnv: 'WKWebView'
     },
     {
       browserName: 'safari',

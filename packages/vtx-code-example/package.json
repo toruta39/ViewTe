@@ -7,5 +7,8 @@
     "vtx": "^1.0.0",
     "babel-jest": "^20.0.3",
     "jest": "^20.0.4"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
