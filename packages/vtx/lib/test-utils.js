@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const wd = require('wd');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
@@ -19,12 +20,22 @@ const getDriver = async (serverConfig, capability) => {
 
     if (desired.browserName === 'vt') {
       if (desired.platformName === 'iOS') {
-        desired.app = path.resolve(__dirname, '../artifacts/WebviewTester.app');
+        desired.app = path.resolve(process.env.HOME, '.vtx', 'artifacts', 'WebviewTester.app');
       } else if (desired.platformName === 'Android') {
-        desired.app = path.resolve(__dirname, '../artifacts/app-release.apk');
+        desired.app = path.resolve(process.env.HOME, '.vtx', 'artifacts', 'app-release.apk');
       } else {
         throw new Error('invalid platformName, use iOS or Android');
       }
+
+      await new Promise((resolve) => {
+        fs.access(desired.app, (err) => {
+          if (err) {
+            throw new Error('test artifacts not found. have you run "vtx install-artifacts"?');
+          }
+
+          resolve();
+        })
+      });
 
       desired.browserName = 'app';
       delete desired.vtEnv;

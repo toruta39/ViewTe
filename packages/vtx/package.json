@@ -4,11 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "bin": "cli.js",
   "engines": {
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "wd": "^1.4.0"
+    "cpr": "^3.0.1",
+    "cross-spawn": "^5.1.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.2",
+    "wd": "^1.4.0",
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",
