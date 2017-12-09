@@ -389,6 +389,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0487E4161FC6DAB0001DE371 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				BA3FECD4D22D4D139FCD2214 /* libSafariViewManager.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		04C957021ED46B4100209954 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,6 +514,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* WebviewTesterTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				0487E4161FC6DAB0001DE371 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";

@@ -1,7 +1,7 @@
 const vtx = require('vtx');
 const config = require('../../vtx.conf');
 
-vtx((driver, capability) => {
+vtx(() => {
   beforeAll(() => {
     this.platform = capability.platformName;
     this.browser = capability.browserName;
@@ -11,14 +11,12 @@ vtx((driver, capability) => {
     }
   });
   
-  afterAll(async (done) => {
+  afterAll(async () => {
     try {
       await driver.quit();
     } catch(e) {
       console.error(e);
     }
-
-    done();
   });
   
   it("should get url", async () => {
