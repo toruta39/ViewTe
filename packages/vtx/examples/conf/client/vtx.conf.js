@@ -14,7 +14,7 @@ module.exports = {
       deviceName: 'iPhone X',
       automationName: 'XCUITest',
       wdaLocalPort: 8101,
-      vtxTestName: 'iOS UIWebView',
+      vtxTestName: 'iOS WKWebView',
       vtEnv: 'WKWebView'
     },
     {
