@@ -19,9 +19,9 @@ const getDriver = async (serverConfig, capability) => {
 
     if (desired.browserName === 'vt') {
       if (desired.platformName === 'iOS') {
-        desired.app = path.resolve(__dirname, './artifacts/WebviewTester.app');
+        desired.app = path.resolve(__dirname, '../artifacts/WebviewTester.app');
       } else if (desired.platformName === 'Android') {
-        desired.app = path.resolve(__dirname, './artifacts/app-release.apk');
+        desired.app = path.resolve(__dirname, '../artifacts/app-release.apk');
       } else {
         throw new Error('invalid platformName, use iOS or Android');
       }
@@ -35,7 +35,7 @@ const getDriver = async (serverConfig, capability) => {
     await driver.init(desired);
     await driver.sleep(CMD_WAIT_TIME);
     
-    if (desired.browserName === 'vt') {
+    if (capability.browserName === 'vt') {
       await bootstrapVt(driver, capability);
     }
   } catch(e) {
