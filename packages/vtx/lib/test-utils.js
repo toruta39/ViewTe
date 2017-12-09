@@ -64,11 +64,17 @@ const bootstrapVt = async (driver, { vtEnv, platformName } = {}) => {
       const text = await browserEnvironment.text();
 
       if (text !== vtEnv) {
-        const menuButton = await await driver.elementByXPath('//XCUIElementTypeOther[@name="menu-button"]');
+        const menuButton = await driver.elementByXPath('//XCUIElementTypeOther[@name="menu-button"]');
         await menuButton.tap();
         const envButton = await driver.elementByXPath(`//XCUIElementTypeOther[@name="environment-list"]//XCUIElementTypeOther[@name="${vtEnv}"]`);
         await envButton.tap();
         await driver.sleep(CMD_WAIT_TIME);
+
+        if (vtEnv === 'SFSafariViewController') {
+          const openSafariViewButton = await driver.elementByXPath('//XCUIElementTypeButton[@name="Open in SafariView"]');
+          await openSafariViewButton.tap();
+          await driver.sleep(CMD_WAIT_TIME);
+        }
       }
     } else if (platformName === 'Android') {
       // noop because android has only 1 type of webview
